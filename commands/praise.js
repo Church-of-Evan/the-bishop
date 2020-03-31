@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const log = require('../utils/log.js');
+const config = require('../utils/config.js');
 
 const options = {
 	name: 'praise',
@@ -7,11 +8,10 @@ const options = {
 };
 
 async function execute(message, args) {
-	const config = message.client.config;
 
 	log.info("Praising");
 
-	const embed = new Discord.MessageEmbed().setColor(config.color.success)
+	const embed = new Discord.MessageEmbed().setColor(config.colors.success)
 		.setTitle("Praises: coming soon");
 	message.channel.send(embed);
 }

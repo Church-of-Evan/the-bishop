@@ -30,12 +30,17 @@ for (const file of commandFiles) {
 
 const cooldowns = new Discord.Collection();
 
-evanisms = [
-	'AMEN!',
-	'Praise be unto Evan',
-	'HALLELUJAH!',
-	'Forever keep his name',
-];
+// matcher: [responses, ...]
+const evanisms = {
+	book: ['Have you heard of the book called the book of Evan?'],
+	forgive: ['The god-king Evan forgives you'],
+	evan: [
+		'AMEN!',
+		'Praise be unto Evan',
+		'HALLELUJAH!',
+		'Forever keep his name',
+	],
+};
 
 // ========
 
@@ -116,11 +121,14 @@ client.on('message', message => {
 });
 
 async function checkEvan(message) {
-	if (message.content.toLowerCase().includes("evan")) {
-		log.info('EVAN DETECTED');
-		const embed = new Discord.MessageEmbed().setColor(config.colors.success)
-			.setTitle(evanisms[getRandomInt(evanisms.length)]);
-		message.channel.send(embed);
+	for (const matcher in evanisms) {
+		if (message.content.toLowerCase().includes(matcher)) {
+			log.info(`Matched ${matcher}`);
+			const embed = new Discord.MessageEmbed().setColor(config.colors.success)
+				.setTitle(evanisms[`${matcher}`][getRandomInt(evanisms[`${matcher}`].length)]);
+			message.channel.send(embed);
+			return;
+		}
 	}
 }
 
@@ -144,4 +152,4 @@ client.login(token);
 // ~ });
 
 // catch and log promise rejections
-process.on('unhandledRejection', err => log.err("Uncaught Promise Rejection!\n" + err));
+process.on('unhandledRejection', err => log.err("Uncaught Promise Rejection! " + err));
