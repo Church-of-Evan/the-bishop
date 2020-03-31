@@ -1,0 +1,17 @@
+{
+	"prefix": "!",
+	
+	"loglevel": "4",
+	
+	"colors": {
+		"success": "#4CAF50",
+		"error": "#f44336",
+		"info": "#2196F3",
+		"warn": "#FFC107"
+	},
+	
+	"roles": {
+		"prophet": "189545904657661952"
+	}
+
+}
