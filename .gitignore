@@ -106,3 +106,4 @@ dist
 # Ignore sensitive files
 token.json
 mongodb_config.json
+praises.json

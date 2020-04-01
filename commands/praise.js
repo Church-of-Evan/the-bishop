@@ -1,19 +1,23 @@
 const Discord = require('discord.js');
 const log = require('../utils/log.js');
-const config = require('../utils/config.js');
+const fs = require('fs');
 
 const options = {
-	name: 'praise',
-	description: 'Praise be!',
+	name: 'praise be',
+	description: 'Bestow your praise unto our Lord',
 };
 
 async function execute(message, args) {
+	const config = message.client.config;
 
 	log.info("Praising");
 
 	const embed = new Discord.MessageEmbed().setColor(config.colors.success)
-		.setTitle("Praises: coming soon");
+		.setTitle("🙏 Praise be! 🙏")
+		.setDescription(`*Praise x${message.client.praises++}*`);
 	message.channel.send(embed);
+
+	fs.writeFileSync('./praises.json', JSON.stringify({ praises: message.client.praises }));
 }
 
 module.exports = options;

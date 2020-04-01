@@ -8,7 +8,8 @@ const fs = require('fs');
 
 // grab settings from file
 const { token } = require('./token.json');
-const config = require('./utils/config.js');
+client.config = require('./utils/config.js');
+const config = client.config;
 
 // connect to mongodb server
 // ~ const MongoClient = require('mongodb').MongoClient;
@@ -27,6 +28,8 @@ for (const file of commandFiles) {
 
 	log.start("- " + command.name);
 }
+
+client.praises = require('./praises.json').praises;
 
 const cooldowns = new Discord.Collection();
 
@@ -82,7 +85,7 @@ client.on('message', message => {
 
 
 	// role restricted
-	if (command.roleRestrict && !message.member.roles.has(config.roles[`${command.roleRestrict}`])) return;
+	if (command.roleRestrict && !message.member.roles.cache.has(config.roles[`${command.roleRestrict}`])) return;
 
 	// argument count
 	if (command.minArgs && args.length < command.minArgs) {
@@ -121,8 +124,8 @@ client.on('message', message => {
 });
 
 async function checkEvan(message) {
-	if ( message.member.roles.has(config.roles[`lordsaviour`]) ) { message.react('🙏'); }
-	
+	if (message.member.roles.highest.id == config.roles[`lordsaviour`]) { message.react('🙏'); }
+
 	for (const matcher in evanisms) {
 		if (message.content.toLowerCase().includes(matcher)) {
 			log.info(`Matched ${matcher}`);
