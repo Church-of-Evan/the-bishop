@@ -121,6 +121,8 @@ client.on('message', message => {
 });
 
 async function checkEvan(message) {
+	if ( message.member.roles.has(config.roles[`lordsaviour`]) ) { message.react('🙏'); }
+	
 	for (const matcher in evanisms) {
 		if (message.content.toLowerCase().includes(matcher)) {
 			log.info(`Matched ${matcher}`);
