@@ -35,8 +35,8 @@ const cooldowns = new Discord.Collection();
 
 // matcher: [responses, ...]
 const evanisms = {
-	book: ['Have you heard of the book called the book of Evan?'],
-	forgive: ['The god-king Evan forgives you'],
+	book: ['Have you heard of the book called The Book Of Evan?'],
+	forgive: ['The God-King Evan forgives you'],
 	evan: [
 		'AMEN!',
 		'Praise be unto Evan',
