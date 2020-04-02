@@ -42,6 +42,7 @@ const evanisms = {
 		'Praise be unto Evan',
 		'HALLELUJAH!',
 		'Forever keep his name',
+		'On Earth as it is in Evan.'
 	],
 };
 
