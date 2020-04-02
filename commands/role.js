@@ -14,20 +14,27 @@ async function execute(message, args) {
 	const config = message.client.config;
 
 	log.info(`Giving role(s) ${args} to ${message.author.username}`);
-	
-	let ids = [];
+
 	for (let rolename of args) {
 		rolename = rolename.toLowerCase();
+		let add = true;
+
+		if (rolename.endsWith('+')) {
+			rolename = rolename.slice(0, -1);
+		}
+		if (rolename.endsWith('-')) {
+			add = false;
+			rolename = rolename.slice(0, -1);
+		}
+
 		const roleid = config.classroles[`${rolename}`];
-		
 		// ignore args that are not valid roles
 		if (roleid == undefined) { continue; }
-		
-		ids.push(roleid);
+
+		if (add) { message.member.roles.add(roleid); }
+		else { message.member.roles.remove(roleid); }
 	}
-	
-	message.member.roles.add(ids);
-	
+
 	message.delete();
 }
 
