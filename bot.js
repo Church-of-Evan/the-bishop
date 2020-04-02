@@ -52,6 +52,10 @@ client.once('ready', () => {
 	log.start("Ready.");
 });
 
+client.on('guildMemberAdd', (guildMember) => {
+   guildMember.roles.add(config.roles.disciples);
+}
+
 client.on('message', message => {
 
 	// ignore bot messages
