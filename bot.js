@@ -42,7 +42,7 @@ const evanisms = {
 		'Praise be unto Evan',
 		'HALLELUJAH!',
 		'Forever keep his name',
-		'On Earth as it is in Evan.'
+		'On Earth as it is in Evan.',
 	],
 };
 
@@ -54,8 +54,8 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.roles.add(config.roles.disciples);
-}
+	guildMember.roles.add(config.roles.disciples);
+});
 
 client.on('message', message => {
 
