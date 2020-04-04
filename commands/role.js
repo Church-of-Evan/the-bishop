@@ -19,7 +19,7 @@ async function execute(message, args) {
 		rolename = rolename.toLowerCase();
 		let add = true;
 
-		if (!(rolename.startsWith('cs') || rolename.startsWith('ece') || rolename.startsWith('all'))) {
+		if (!(rolename.startsWith('cs') || rolename.startsWith('ece') || rolename.startsWith('all') || rolename.startsWith('gaming'))) {
 			rolename = 'cs' + rolename;
 		}
 
