@@ -1,0 +1,17 @@
+---
+token: TOKEN_HERE
+prefix: '!'
+
+roles:
+  god: 11111
+  admin: 22222
+  disciple: 33333
+
+classroles:
+  cs111: 123456789
+
+colors:
+  success: 4CAF50
+  error: f44336
+  info: 2196F3
+  warn: FFC107
