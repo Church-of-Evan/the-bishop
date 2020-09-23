@@ -31,6 +31,37 @@ bot.command :role do |event, action, *roles|
   end
 end
 
+# command to create new class role & channel
+bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, name|
+  return event.message.react '❓' unless name && name =~ /\w+\d+/
+
+  server = event.server
+
+  new_role = server.create_role(name: name)
+
+  # update !role list with new role
+  CONFIG['class_roles'][name] = new_role.id
+  File.write('config.yml', CONFIG.to_yaml)
+
+  can_view = Discordrb::Permissions.new
+  can_view.can_read_messages = true # AKA view_channel
+
+  new_channel = server.create_channel(
+    "#{name.insert(name =~ /\d/, '-')}-questions",
+    parent: CONFIG['class_category'],
+    permission_overwrites: [
+      Discordrb::Overwrite.new(new_role, allow: can_view),
+      Discordrb::Overwrite.new(CONFIG['class_roles']['all'], allow: can_view),
+      Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
+    ]
+  )
+
+  event.channel.send_embed do |embed|
+    embed.description = "Channel #{new_channel.mention} and role #{new_role.mention} created."
+    embed.color = CONFIG['colors']['success']
+  end
+end
+
 bot.command :praise do |event|
   praises = File.open('praises').read.to_i
   praises += 1
