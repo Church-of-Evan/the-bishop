@@ -69,6 +69,7 @@ bot.command :praise do |event|
     embed.title = '🙏 Praise be to Evan! 🙏'
     embed.description = "*Praises x#{praises}*"
     embed.color = CONFIG['colors']['success']
+    embed.thumbnail = {url: 'https://media.discordapp.net/attachments/758182759683457035/758243415459627038/TempDorime.png'}
   end
   File.open('praises', 'w') { |f| f.write praises }
   nil
