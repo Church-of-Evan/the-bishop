@@ -7,7 +7,7 @@ CONFIG = YAML.load_file('config.yml')
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
-bot.command :role do |event, action, *roles|
+bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
   if %w[add remove].include? action
     roles.each do |r|
       return event.message.react '❓' unless CONFIG['class_roles'][r]
