@@ -17,7 +17,7 @@ bot.command(:ping) do |event|
   embed = Discordrb::Webhooks::Embed.new
   embed.color = CONFIG['colors']['success']
   embed.title = 'Pong!'
-  embed.description = "⌚ #{(pong_ts.to_f - ping_ts.to_f)}ms"
+  embed.description = "⌚ #{((pong_ts.to_f - ping_ts.to_f)*1000).round(1)}ms"
   pong_msg.edit('', embed)
 end
 
