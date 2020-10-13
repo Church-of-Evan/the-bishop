@@ -7,6 +7,20 @@ CONFIG = YAML.load_file('config.yml')
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
+bot.command(:ping) do |event|
+  ping_ts = event.message.timestamp
+  pong_msg = event.channel.send_embed do |embed|
+    embed.color = CONFIG['colors']['success']
+    embed.title = 'Pong!'
+  end
+  pong_ts = pong_msg.timestamp
+  embed = Discordrb::Webhooks::Embed.new
+  embed.color = CONFIG['colors']['success']
+  embed.title = 'Pong!'
+  embed.description = "⌚ #{((pong_ts.to_f - ping_ts.to_f)*1000).round(1)}ms"
+  pong_msg.edit('', embed)
+end
+
 bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
   if %w[add remove].include? action
     roles.each do |r|
