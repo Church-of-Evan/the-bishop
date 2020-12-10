@@ -7,6 +7,9 @@ CONFIG = YAML.load_file('config.yml')
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
+# praise count mutex
+praise_mutex = Mutex.new
+
 bot.command(:ping) do |event|
   ping_ts = event.message.timestamp
   pong_msg = event.channel.send_embed do |embed|
@@ -77,18 +80,20 @@ bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, na
 end
 
 bot.command :praise do |event|
-  praises = File.open('praises').read.to_i
-  praises += 1
-  event.channel.send_embed do |embed|
-    embed.title = '🙏 Praise be to Evan! 🙏'
-    embed.description = "*Praises x#{praises}*"
-    embed.color = CONFIG['colors']['success']
-    embed.thumbnail = {
-      url: 'https://media.discordapp.net/attachments/758182759683457035/758243415459627038/TempDorime.png'
-    }
-  end
-  File.open('praises', 'w') { |f| f.write praises }
-  nil
+  praise_mutex.synchronize {
+    praises = File.open('praises').read.to_i
+    praises += 1
+    event.channel.send_embed do |embed|
+      embed.title = '🙏 Praise be to Evan! 🙏'
+      embed.description = "*Praises x#{praises}*"
+      embed.color = CONFIG['colors']['success']
+      embed.thumbnail = {
+        url: 'https://media.discordapp.net/attachments/758182759683457035/758243415459627038/TempDorime.png'
+      }
+    end
+    File.open('praises', 'w') { |f| f.write praises }
+    nil
+  }
 end
 
 # add :pray: react to the God King (praise be btw)
