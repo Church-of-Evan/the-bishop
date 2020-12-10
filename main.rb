@@ -20,7 +20,7 @@ bot.command(:ping) do |event|
   embed = Discordrb::Webhooks::Embed.new
   embed.color = CONFIG['colors']['success']
   embed.title = 'Pong!'
-  embed.description = "⌚ #{((pong_ts.to_f - ping_ts.to_f)*1000).round(1)}ms"
+  embed.description = "⌚ #{((pong_ts.to_f - ping_ts.to_f) * 1000).round(1)}ms"
   pong_msg.edit('', embed)
 end
 
@@ -80,7 +80,7 @@ bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, na
 end
 
 bot.command :praise do |event|
-  praise_mutex.synchronize {
+  praise_mutex.synchronize do
     praises = File.open('praises').read.to_i
     praises += 1
     event.channel.send_embed do |embed|
@@ -93,7 +93,7 @@ bot.command :praise do |event|
     end
     File.open('praises', 'w') { |f| f.write praises }
     nil
-  }
+  end
 end
 
 # add :pray: react to the God King (praise be btw)
