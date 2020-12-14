@@ -27,7 +27,19 @@ end
 bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
   if %w[add remove].include? action
     roles.each do |r|
-      return event.message.react '❓' unless CONFIG['class_roles'][r]
+      r = "cs#{r}" unless r.start_with?('ece', 'cs')
+
+      unless CONFIG['class_roles'][r]
+        err_msg = "#{event.message.content.tr('`', '')}\n"
+        err_msg += ' ' * err_msg.index(r) + '^' * r.length
+        return event.channel.send_embed do |embed|
+          embed.fields = [
+            { name: 'Role not recognized:', value: "```#{err_msg}```" },
+            { name: 'Example usage:', value: "`!role add cs325 cs381`\nCheck `!role` for valid roles" }
+          ]
+          embed.color = CONFIG['colors']['error']
+        end
+      end
 
       if action == 'add'
         event.author.add_role(CONFIG['class_roles'][r])
@@ -39,8 +51,7 @@ bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
   else # list roles if no action given
     event.channel.send_embed do |embed|
       embed.fields = [
-        { name: 'Usage:', value: '`!role add role role2 ...`
-        `!role remove role role2 ...`' },
+        { name: 'Usage:', value: "`!role add role role2 ...`\n`!role remove role role2 ...`" },
         { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.join('` `')}`" }
       ]
       embed.color = CONFIG['colors']['error']
