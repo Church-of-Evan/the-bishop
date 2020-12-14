@@ -27,8 +27,6 @@ end
 bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
   if %w[add remove].include? action
     roles.each do |r|
-      r = "cs#{r}" unless r.start_with?('ece', 'cs')
-
       unless CONFIG['class_roles'][r]
         err_msg = "#{event.message.content.tr('`', '')}\n"
         err_msg += ' ' * err_msg.index(r) + '^' * r.length
