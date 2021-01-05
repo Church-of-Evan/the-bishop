@@ -24,12 +24,16 @@ bot.command(:ping) do |event|
   pong_msg.edit('', embed)
 end
 
-bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
+bot.command(:role,
+            aliases: [:roles],
+            channels: [CONFIG['bot_channel'], CONFIG['testing_channel']]) do |event, action, *roles|
   if %w[add remove].include? action
+    last_completed = ''
     roles.each do |r|
       unless CONFIG['class_roles'][r]
+        event.message.react '❓'
         err_msg = "#{event.message.content.tr('`', '')}\n"
-        err_msg += ' ' * err_msg.index(r) + '^' * r.length
+        err_msg += ' ' * err_msg.index(r, err_msg.index(last_completed) + 1) + '^' * r.length
         return event.channel.send_embed do |embed|
           embed.fields = [
             { name: 'Role not recognized:', value: "```#{err_msg}```" },
@@ -44,13 +48,15 @@ bot.command(:role, channels: [CONFIG['bot_channel']]) do |event, action, *roles|
       else
         event.author.remove_role(CONFIG['class_roles'][r])
       end
+      last_completed = r
     end
     event.message.react '✅'
+
   else # list roles if no action given
     event.channel.send_embed do |embed|
       embed.fields = [
-        { name: 'Usage:', value: "`!role add role role2 ...`\n`!role remove role role2 ...`" },
-        { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.join('` `')}`" }
+        { name: 'Usage:', value: "`!role add role [role2 ...]`\n`!role remove role [role2 ...]`" },
+        { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map{|k| k.ljust 6}.join('` `')}`" }
       ]
       embed.color = CONFIG['colors']['error']
     end
