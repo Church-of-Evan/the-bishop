@@ -73,6 +73,7 @@ bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, na
 
   # update !role list with new role
   CONFIG['class_roles'][name] = new_role.id
+  CONFIG['class_roles'] = CONFIG['class_roles'].sort {|a, _| a[0].gsub(/[^\d]/, '').to_i }.reverse.to_h
   File.write('config.yml', CONFIG.to_yaml)
 
   can_view = Discordrb::Permissions.new
