@@ -56,7 +56,7 @@ bot.command(:role,
     event.channel.send_embed do |embed|
       embed.fields = [
         { name: 'Usage:', value: "`!role add role [role2 ...]`\n`!role remove role [role2 ...]`" },
-        { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map{|k| k.ljust 6}.join('` `')}`" }
+        { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map { |k| k.ljust 6 }.join('` `')}`" }
       ]
       embed.color = CONFIG['colors']['error']
     end
@@ -67,13 +67,14 @@ end
 bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, name|
   return event.message.react '❓' unless name && name =~ /\w+\d+/
 
+  return 'That role already exists!' if CONFIG['class_roles'].key? name
+
   server = event.server
 
-  new_role = server.create_role(name: name)
-
   # update !role list with new role
+  new_role = server.create_role(name: name)
   CONFIG['class_roles'][name] = new_role.id
-  CONFIG['class_roles'] = CONFIG['class_roles'].sort {|a, _| a[0].gsub(/[^\d]/, '').to_i }.reverse.to_h
+  CONFIG['class_roles'] = CONFIG['class_roles'].sort_by { |a| a[0][/\d+/].to_i }.to_h
   File.write('config.yml', CONFIG.to_yaml)
 
   can_view = Discordrb::Permissions.new
