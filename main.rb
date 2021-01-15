@@ -113,9 +113,13 @@ bot.command :praise do |event|
   end
 end
 
-# add :pray: react to the God King (praise be btw)
+# add :pray: react to the God King (praise be btw) and :zachR: and :zachL: react to Toxic_Z
 bot.message do |event|
   event.message.react '🙏' if event.author.roles.any? { |r| r.id == CONFIG['roles']['god'] }
+  if event.author.roles.any? { |r| r.id == CONFIG['roles']['toxic'] }
+    event.message.react ':zachL:797961331101794344'
+    event.message.react ':zachR:797961330929303583'
+  end
 end
 
 # add role on member join
