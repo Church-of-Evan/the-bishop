@@ -123,8 +123,7 @@ bot.message do |event|
     event.message.react ':zachL:797961331101794344'
     event.message.react ':zachR:797961330929303583'
   end
-  # /MAKE(?!.*\..).*?(BOT|BISHOP)/
-  if event.message =~ /MAKE(?!.*\..).*?(BOT|BISHOP)/i
+  if event.message =~ /make(?!.*\..).*?(bot|bishop)/i
 	event.channel.send_message('PRs welcome.')
   end
 end
