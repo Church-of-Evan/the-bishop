@@ -118,6 +118,14 @@ bot.message do |event|
   event.message.react '🙏' if event.author.roles.any? { |r| r.id == CONFIG['roles']['god'] }
 end
 
+# add :zachR: and :zachL: react to Toxic_Z
+bot.message do |event|
+  if event.author.roles.any? { |r| r.id == CONFIG['roles']['toxic'] }
+    event.message.react ':zachL:797961331101794344'
+    event.message.react ':zachR:797961330929303583'
+  end
+end
+
 # add role on member join
 bot.member_join do |event|
   event.user.add_role(CONFIG['roles']['disciple'])
