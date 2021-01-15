@@ -116,16 +116,19 @@ end
 
 # add :pray: react to the God King (praise be btw)
 # add :zachR: and :zachL: react to Toxic_Z
-# say "PRs welcome" when someone mentions making the bot/bishop do something
 bot.message do |event|
   event.message.react '🙏' if event.author.roles.any? { |r| r.id == CONFIG['roles']['god'] }
   if event.author.roles.any? { |r| r.id == CONFIG['roles']['toxic'] }
     event.message.react ':zachL:797961331101794344'
     event.message.react ':zachR:797961330929303583'
   end
+end
+
+# say "PRs welcome" when someone mentions making the bot/bishop do something
+bot.message do |event|
   if event.message.content =~ /make[^.]+.*?(bot|bishop)/i
     event.channel.send_embed do |embed|
-      embed.title = 'PRs welcome.'
+      embed.title = 'PRs welcome'
       embed.description = 'https://github.com/detjensrobert/lord-evan-bot'
       embed.color = CONFIG['colors']['info']
     end
