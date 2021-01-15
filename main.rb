@@ -123,8 +123,12 @@ bot.message do |event|
     event.message.react ':zachL:797961331101794344'
     event.message.react ':zachR:797961330929303583'
   end
-  if event.message =~ /make(?!.*\..).*?(bot|bishop)/i
-	event.channel.send_message('PRs welcome.')
+  if event.message.content =~ /make[^.]+.*?(bot|bishop)/i
+	event.channel.send_embed do |embed|
+		embed.title = 'PRs welcome.'
+		embed.description = 'https://github.com/detjensrobert/lord-evan-bot'
+      embed.color = CONFIG['colors']['info']
+	end
   end
 end
 
