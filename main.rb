@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 # frozen_string_literal: true
 
 require 'discordrb'
@@ -113,12 +114,18 @@ bot.command :praise do |event|
   end
 end
 
-# add :pray: react to the God King (praise be btw) and :zachR: and :zachL: react to Toxic_Z
+# add :pray: react to the God King (praise be btw)
+# add :zachR: and :zachL: react to Toxic_Z
+# say "PRs welcome" when someone mentions making the bot/bishop do something
 bot.message do |event|
   event.message.react '🙏' if event.author.roles.any? { |r| r.id == CONFIG['roles']['god'] }
   if event.author.roles.any? { |r| r.id == CONFIG['roles']['toxic'] }
     event.message.react ':zachL:797961331101794344'
     event.message.react ':zachR:797961330929303583'
+  end
+  # /MAKE(?!.*\..).*?(BOT|BISHOP)/
+  if event.message =~ /MAKE(?!.*\..).*?(BOT|BISHOP)/i
+	event.channel.send_message('PRs welcome.')
   end
 end
 
