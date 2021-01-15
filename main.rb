@@ -125,13 +125,11 @@ bot.message do |event|
 end
 
 # say "PRs welcome" when someone mentions making the bot/bishop do something
-bot.message do |event|
-  if event.message.content =~ /make[^.]+.*?(bot|bishop)/i
-    event.channel.send_embed do |embed|
-      embed.title = 'PRs welcome'
-      embed.description = 'https://github.com/detjensrobert/lord-evan-bot'
-      embed.color = CONFIG['colors']['info']
-    end
+bot.message(contains: /make[^.]+.*?(bot|bishop)/i) do |event|
+  event.channel.send_embed do |embed|
+    embed.title = 'PRs welcome'
+    embed.description = 'https://github.com/detjensrobert/lord-evan-bot'
+    embed.color = CONFIG['colors']['info']
   end
 end
 
