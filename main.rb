@@ -96,7 +96,7 @@ bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, na
   end
 end
 
-bot.command :praise do |event|
+bot.command(:praise, channels: [CONFIG['chapel_channel']]) do |event|
   praise_mutex.synchronize do
     praises = File.open('praises').read.to_i
     praises += 1
