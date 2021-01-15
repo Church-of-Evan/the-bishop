@@ -6,7 +6,6 @@ roles:
   god: 11111
   admin: 22222
   disciple: 33333
-  toxic: 44444
 
 classroles:
   cs111: 123456789
