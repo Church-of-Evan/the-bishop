@@ -1,0 +1,10 @@
+---
+AllCops:
+  NewCops: enable
+Style/NumericLiterals:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%w": '()'
+Metrics/BlockLength:
+  Enabled: false

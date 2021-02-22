@@ -27,7 +27,7 @@ end
 bot.command(:role,
             aliases: [:roles],
             channels: [CONFIG['bot_channel'], CONFIG['testing_channel']]) do |event, action, *roles|
-  if %w[add remove].include? action
+  if %w(add remove).include? action
     last_completed = ''
     roles.each do |r|
       unless CONFIG['class_roles'][r]
@@ -111,6 +111,19 @@ bot.command(:praise, channels: [CONFIG['chapel_channel']]) do |event|
     File.open('praises', 'w') { |f| f.write praises }
     nil
   end
+end
+
+bot.command(:yeet) do |event|
+  yeets = %w(
+    evan\ says\ "yote"
+    https://tenor.com/view/yeet-rafiki-simba-lion-king-gif-12559094
+    https://tenor.com/view/big-yeet-spinning-gif-11694855
+    https://tenor.com/view/dab-dancing-idgaf-gif-5661979
+    https://giphy.com/gifs/memecandy-J1ABRhlfvQNwIOiAas
+    https://tenor.com/view/bettywhite-dab-gif-5044603
+  )
+
+  event.send yeets.sample
 end
 
 # add :pray: react to the God King (praise be btw) and :zachR: and :zachL: react to Toxic_Z
