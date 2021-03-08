@@ -82,7 +82,7 @@ bot.command(:newclass, required_roles: [CONFIG['roles']['admin']]) do |event, na
 
   new_channel = server.create_channel(
     "#{name.insert(name =~ /\d/, '-')}-questions",
-    parent: CONFIG['class_category'],
+    parent: CONFIG['class_categories'][name[/\d+/].to_i / 100 * 100],
     permission_overwrites: [
       Discordrb::Overwrite.new(new_role, allow: can_view),
       Discordrb::Overwrite.new(CONFIG['class_roles']['all'], allow: can_view),

@@ -1,14 +1,27 @@
 ---
-token: TOKEN_HERE
-prefix: '!'
+token: tokentokentoken
+
+prefix: "!"
+
+bot_channel: 1234
+testing_channel: 1234
 
 roles:
-  god: 11111
-  admin: 22222
-  disciple: 33333
+  god: 1111
+  admin: 2222
+  disciple: 3333
 
-classroles:
-  cs111: 123456789
+class_categories:
+  100: 1111
+  200: 2222
+  300: 3333
+  400: 4444
+  500: 5555
+
+class_roles:
+  all: 1234
+  gaming: 1234
+  cs100: 1234
 
 colors:
   success: 4CAF50
