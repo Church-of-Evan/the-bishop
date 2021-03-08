@@ -131,7 +131,7 @@ end
 bot.message do |event|
   event.message.react '🙏' if event.author.roles.any? { |r| r.id == CONFIG['roles']['god'] }
 
-  if event.author.id == 199396039357104128 && !CONFIG['class_categories'].include? event.channel.parent_id
+  if event.author.id == 199396039357104128 && !(CONFIG['class_categories'].include? event.channel.parent_id)
     event.message.react ':zachL:797961331101794344'
     event.message.react ':zachR:797961330929303583'
   end
