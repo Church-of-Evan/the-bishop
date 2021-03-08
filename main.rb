@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 require 'discordrb'
@@ -28,7 +29,7 @@ bot.command(:role,
             aliases: [:roles],
             channels: [CONFIG['bot_channel'], CONFIG['testing_channel']]) do |event, action, *roles|
   if %w(add remove).include? action
-    last_completed = ''
+    last_completed = 'role'
     roles.each do |r|
       unless CONFIG['class_roles'][r]
         event.message.react '❓'
