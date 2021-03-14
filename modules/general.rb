@@ -1,10 +1,60 @@
 # frozen_string_literal: true
 
+require 'mathematical'
+require 'mini_magick'
+require 'tempfile'
+
 # praise count mutex
 PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
 
 module GeneralCommands
   extend Discordrb::Commands::CommandContainer
+
+  command(
+    :latex,
+    aliases: %i[eqn equation],
+    description: 'Render a LaTeX math equation into an image'
+  ) do |event, *equation|
+    tempfile = Tempfile.new('equation')
+    equation = equation.join(' ')
+
+    begin
+      eqn_filters = [
+        ['`', ''], # remove any `s for code block
+        ['\\text{', '\\backslash text~{'], # \text mode bogs down system
+        ['\\\\', '\\'], # prevent double backslash, needed to make latex rendering work
+        ['$', '\\$'], # $ is to enter/exit math mode but already in math mode so ignore
+        ['"', '\\"'] # " could escape the latex function
+      ]
+      eqn_filters.each { |filter, replace| equation.gsub!(filter, replace) }
+      equation.strip!
+
+      raw_image = Mathematical.new(format: :png, ppi: 300.0).render("$#{equation}$")
+      if raw_image[:exception]
+        return event.send_embed do |embed|
+          embed.color = CONFIG['colors']['error']
+          embed.title = 'Error rendering equation'
+          embed.description = "```\n#{raw_image[:exception]}\n```"
+        end
+      end
+
+      # add background and padding for legibility
+      clean_image = MiniMagick::Image.read(raw_image[:data], ext: 'png')
+      clean_image.flatten                  # get rid of alpha channel
+      clean_image.combine_options do |img| # add padding
+        img.border 10
+        img.bordercolor 'white'
+      end
+      clean_image.write tempfile.path
+
+      event.send_file(tempfile, filename: 'equation.png')
+    ensure
+      # remove tempfile
+      tempfile.close
+      tempfile.unlink
+    end
+    nil
+  end
 
   command(:ping, description: 'Pong!') do |event|
     ping_ts = event.message.timestamp
