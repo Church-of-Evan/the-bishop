@@ -57,4 +57,5 @@ build-iPhoneSimulator/
 
 # sensitive files
 config.yml
+roles.yml
 praises
