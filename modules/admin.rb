@@ -67,7 +67,7 @@ module AdminCommands
 
     # sort role list in CONFIG file
     CONFIG['class_roles'] = CONFIG['class_roles'].sort_by { |a| a[0][/\d+/].to_i }.to_h
-    File.write('CONFIG.yml', CONFIG.to_yaml)
+    File.write('config.yml', CONFIG.to_yaml)
 
     can_view = Discordrb::Permissions.new
     can_view.can_read_messages = true # AKA view_channel
