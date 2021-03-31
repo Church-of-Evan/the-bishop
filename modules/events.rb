@@ -14,7 +14,8 @@ module EventHandlers
   end
 
   # add role on member join
-  member_join do |event|
-    event.user.add_role(CONFIG['roles']['disciple'])
-  end
+  # broken, oof!
+  # member_join do |event|
+  #   event.user.add_role(CONFIG['roles']['disciple'])
+  # end
 end

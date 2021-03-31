@@ -1,22 +1,16 @@
-GIT
-  remote: https://github.com/shardlab/discordrb
-  revision: 75d3e6a8fd2cda78a1e3c8e4585b33372b5800e4
-  branch: main
-  specs:
-    discordrb (3.4.2)
-      discordrb-webhooks (~> 3.4.2)
-      ffi (>= 1.9.24)
-      opus-ruby
-      rest-client (>= 2.0.0)
-      websocket-client-simple (>= 0.3.0)
-    discordrb-webhooks (3.4.2)
-      rest-client (>= 2.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
     concurrent-ruby (1.1.8)
+    discordrb (3.4.0)
+      discordrb-webhooks (~> 3.3.0)
+      ffi (>= 1.9.24)
+      opus-ruby
+      rest-client (>= 2.0.0)
+      websocket-client-simple (>= 0.3.0)
+    discordrb-webhooks (3.3.0)
+      rest-client (>= 2.1.0.rc1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
@@ -46,7 +40,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.4)
-    rubocop (1.11.0)
+    rubocop (1.12.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -73,7 +67,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  discordrb!
+  discordrb
   mathematical
   mini_magick
   rubocop

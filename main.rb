@@ -16,8 +16,6 @@ bot = Discordrb::Commands::CommandBot.new(
   token: CONFIG['token'],
   prefix: CONFIG['prefix'],
   intents: %i[
-    all
-    server
     server_members
     server_message_reactions
     server_messages
