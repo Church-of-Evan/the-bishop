@@ -1,15 +1,20 @@
 ---
-name: CI
+name: reviewdog lint
 on: [pull_request, push]
-
 jobs:
-  build:
+  rubocop:
+    name: runner / rubocop
     runs-on: ubuntu-latest
     steps:
-
-    - uses: actions/checkout@v1
-
-    - name: Rubocop checks
-      uses: luizfonseca/github-actions-rubocop@1.5.5
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out code
+        uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.0
+      - name: rubocop
+        uses: reviewdog/action-rubocop@v1
+        with:
+          rubocop_version: gemfile
+          rubocop_extensions: rubocop-rails:gemfile rubocop-rspec:gemfile
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review # Default is github-pr-check
