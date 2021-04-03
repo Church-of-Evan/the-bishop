@@ -94,7 +94,6 @@ module GeneralCommands
     channels: [CONFIG['bot_channel'], CONFIG['testing_channel']],
     description: 'Add class roles to see channels for each class'
   ) do |event, action, *roles|
-
     # add disciples role here temporarily since event is broken
     event.author.add_role(CONFIG['roles']['disciple'])
 

@@ -12,15 +12,7 @@ module_files.each { |f| load f }
 
 CONTAINERS = [EventHandlers, AdminCommands, GeneralCommands].freeze
 
-bot = Discordrb::Commands::CommandBot.new(
-  token: CONFIG['token'],
-  prefix: CONFIG['prefix'],
-  intents: %i[
-    server_members
-    server_message_reactions
-    server_messages
-  ]
-)
+bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
 # load inital containers
 CONTAINERS.each { |container| bot.include!(container) }
