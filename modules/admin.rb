@@ -41,10 +41,22 @@ module AdminCommands
 
     event.send_embed do |embed|
       embed.color = CONFIG['colors']['success']
-      embed.title = 'Updated successfully'
+      embed.title = 'Repo updated successfully, restarting...'
       embed.description = "Running commit `#{`git rev-parse HEAD`[0..8]}`"
     end
     event.message.delete_own_reaction '⌛'
+
+    # will restart due to systemd
+    exit
+  end
+
+  command(
+    :reload,
+    required_roles: [CONFIG['roles']['admin']],
+    description: 'Reload all command containers'
+  ) do |event|
+    load_containers(event.bot)
+    event.message.react '✅'
   end
 
   command(
