@@ -20,11 +20,9 @@ end
 module AdminCommands
   extend Discordrb::Commands::CommandContainer
 
-  command(
-    :update,
-    required_roles: [CONFIG['roles']['admin']],
-    description: 'Update bot to latest commit'
-  ) do |event|
+  command(:update,
+          required_roles: [CONFIG['roles']['admin']],
+          description: 'Update bot to latest commit') do |event|
     event.message.react '⌛'
 
     _out, err, status = Open3.capture3 'git fetch --prune && git pull'
@@ -50,20 +48,16 @@ module AdminCommands
     exit
   end
 
-  command(
-    :reload,
-    required_roles: [CONFIG['roles']['admin']],
-    description: 'Reload all command containers'
-  ) do |event|
+  command(:reload,
+          required_roles: [CONFIG['roles']['admin']],
+          description: 'Reload all command containers') do |event|
     load_containers(event.bot)
     event.message.react '✅'
   end
 
-  command(
-    :newclass,
-    required_roles: [CONFIG['roles']['admin']],
-    description: 'Create a new class role and channel. [admin only]'
-  ) do |event, name|
+  command(:newclass,
+          required_roles: [CONFIG['roles']['admin']],
+          description: 'Create a new class role and channel. [admin only]') do |event, name|
     return event.message.react '❓' unless name && name =~ /\w+\d+/
 
     return 'That role already exists!' if CONFIG['class_roles'].key? name

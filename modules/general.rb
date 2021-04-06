@@ -10,11 +10,9 @@ PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
 module GeneralCommands
   extend Discordrb::Commands::CommandContainer
 
-  command(
-    :latex,
-    aliases: %i[eqn equation],
-    description: 'Render a LaTeX math equation into an image'
-  ) do |event, *equation|
+  command(:latex,
+          aliases: %i[eqn equation],
+          description: 'Render a LaTeX math equation into an image') do |event, *equation|
     equation = equation.join(' ')
 
     Tempfile.create(%w(equation png)) do |tempfile|
@@ -59,12 +57,10 @@ module GeneralCommands
     end
   end
 
-  command(
-    :role,
-    aliases: [:roles],
-    channels: [CONFIG['bot_channel'], CONFIG['testing_channel']],
-    description: 'Add class roles to see channels for each class'
-  ) do |event, action, *roles|
+  command(:role,
+          aliases: [:roles],
+          channels: [CONFIG['bot_channel'], CONFIG['testing_channel']],
+          description: 'Add class roles to see channels for each class') do |event, action, *roles|
     # add disciples role here temporarily since event is broken
     event.author.add_role(CONFIG['roles']['disciple'])
 
