@@ -23,9 +23,4 @@ module EventHandlers
       end
     end
   end
-
-  # add disciple role on member join
-  member_join do |event|
-    event.server.member(event.user.id).add_role(CONFIG['roles']['disciple'])
-  end
 end
