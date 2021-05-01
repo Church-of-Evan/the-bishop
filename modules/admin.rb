@@ -40,7 +40,7 @@ module AdminCommands
     event.send_embed do |embed|
       embed.color = CONFIG['colors']['success']
       embed.title = 'Repo updated successfully, restarting...'
-      embed.description = "Running commit `#{`git rev-parse HEAD`[0..8]}`"
+      embed.description = "Running commit `#{`git rev-parse HEAD`[0..8]}`:\n```#{`git show -s --format=%s`}```"
     end
     event.message.delete_own_reaction '⌛'
 
