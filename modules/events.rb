@@ -14,11 +14,11 @@ module EventHandlers
     end
 
     # render any latex math equations in message
-    equations = event.message.content.scan(/(?:^|\s)\$(.+?)\$(?:$|\s)/).flatten
+    equations = event.message.content.scan(/(?:^|\s)\$\$?(.+?)\$\$?(?:$|\s)/).flatten
     equations.each do |eqn|
       Tempfile.create(%w(equation png)) do |tempfile|
         tempfile.binmode
-        render_latex_equation(tempfile, eqn)
+        render_latex_equation(event, tempfile, eqn)
         event.send_file(tempfile, filename: 'equation.png')
       end
     end

@@ -17,9 +17,7 @@ module GeneralCommands
 
     Tempfile.create(%w(equation png)) do |tempfile|
       tempfile.binmode
-
-      render_latex_equation(tempfile, equation)
-
+      render_latex_equation(event, tempfile, equation)
       event.send_file(tempfile, filename: 'equation.png')
     end
     nil
