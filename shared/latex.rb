@@ -8,7 +8,7 @@ require 'mini_magick'
 #   Must already exist, as this does not set a filename!
 # @param equation [String] The equation to render.
 #   Enclosing $s should not be passed in.
-def render_latex_equation(event, file, equation)
+def render_latex_equation(file, equation)
   eqn_filters = [
     ['```tex', ''], # remove any `s for code block
     ['`', ''], # remove any `s for code block
@@ -20,13 +20,7 @@ def render_latex_equation(event, file, equation)
 
   raw_image = Mathematical.new(format: :png, ppi: 500.0).render("$#{equation}$")
 
-  if raw_image[:exception]
-    return event.send_embed do |embed|
-      embed.color = CONFIG['colors']['error']
-      embed.title = 'Error rendering equation'
-      embed.description = "```\n#{raw_image[:exception]}\n```"
-    end
-  end
+  raise raw_image[:exception] if raw_image[:exception]
 
   file.write raw_image[:data]
   file.rewind

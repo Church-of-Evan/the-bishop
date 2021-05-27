@@ -18,8 +18,16 @@ module EventHandlers
     equations.each do |eqn|
       Tempfile.create(%w(equation png)) do |tempfile|
         tempfile.binmode
-        render_latex_equation(event, tempfile, eqn)
-        event.send_file(tempfile, filename: 'equation.png')
+        begin
+          render_latex_equation(tempfile, eqn)
+          event.send_file(tempfile, filename: 'equation.png')
+        rescue Exception => e
+          event.send_embed do |embed|
+            embed.color = CONFIG['colors']['error']
+            embed.title = 'Error rendering equation'
+            embed.description = "```\n#{e}\n```"
+          end
+        end
       end
     end
   end
