@@ -74,6 +74,7 @@ module GeneralCommands
       last_completed = 'role'
 
       roles.each do |r|
+      	r.downcase!
         unless CONFIG['class_roles'][r]
           # if role not found
           event.message.react '❓'
