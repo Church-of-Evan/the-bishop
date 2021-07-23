@@ -101,7 +101,7 @@ module GeneralCommands
     else # list roles if no action given
       event.channel.send_embed do |embed|
         embed.fields = [
-          { name: 'Usage:', value: "`!role add role [role2 ...]`\n`!role remove role [role2 ...]`" },
+          { name: 'Usage:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" },
           { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map { |k| k.ljust 7 }.join('` `')}`" },
           { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' }
         ]
