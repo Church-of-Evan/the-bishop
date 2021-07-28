@@ -20,7 +20,7 @@ module GeneralCommands
       begin
         render_latex_equation(tempfile, equation)
         event.send_file(tempfile, filename: 'equation.png')
-      rescue Exception => e
+      rescue StandardError => e
         event.send_embed do |embed|
           embed.color = CONFIG['colors']['error']
           embed.title = 'Error rendering equation'
@@ -74,7 +74,7 @@ module GeneralCommands
       last_completed = 'role'
 
       roles.each do |r|
-      	r.downcase!
+        r.downcase!
         unless CONFIG['class_roles'][r]
           # if role not found
           event.message.react '❓'

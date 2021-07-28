@@ -21,7 +21,7 @@ module EventHandlers
         begin
           render_latex_equation(tempfile, eqn)
           event.send_file(tempfile, filename: 'equation.png')
-        rescue Exception => e
+        rescue StandardError => e
           event.send_embed do |embed|
             embed.color = CONFIG['colors']['error']
             embed.title = 'Error rendering equation'
