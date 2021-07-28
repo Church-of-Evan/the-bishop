@@ -7,7 +7,7 @@ Discord bot for a server I run. Does joke things and role moderation.
 1. Copy `config.example.yml` to `config.yml`
 2. Replace the placeholder token.
 3. Add the desired `role: roleID` pairs.
-4. Install required gems: `bundle install --path ./vendor/bundle`
+4. Install required gems: `bundle install`
 5. Run the bot: `bundle exec ruby main.rb`
 
 -----
