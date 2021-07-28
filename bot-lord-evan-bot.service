@@ -1,0 +1,19 @@
+[Unit]
+Description=Lord Evan Discord Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/bots/lord-evan-bot/
+ExecStartPre=bundle install --path vendor/bundle
+ExecStart=bundle exec ruby main.rb
+Restart=always
+User=bots
+
+CPUAccounting=yes
+MemoryAccounting=yes
+IPAccounting=yes
+
+[Install]
+WantedBy=multi-user.target
