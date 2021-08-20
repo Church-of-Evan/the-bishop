@@ -2,7 +2,7 @@
 
 require 'tempfile'
 
-require_relative '../shared/latex'
+require_relative '../shared/latex_renderer'
 
 # praise count mutex
 PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
@@ -18,7 +18,7 @@ module GeneralCommands
     Tempfile.create(%w(equation png)) do |tempfile|
       tempfile.binmode
       begin
-        render_latex_equation(tempfile, equation)
+        LatexRenderer.render_latex_equation(tempfile, equation)
         event.send_file(tempfile, filename: 'equation.png')
       rescue StandardError => e
         event.send_embed do |embed|
@@ -75,7 +75,7 @@ module GeneralCommands
 
       roles.each do |r|
         r.downcase!
-        unless CONFIG['class_roles'][r]
+        unless ROLES[r]
           # if role not found
           event.message.react '❓'
           err_msg = "#{event.message.content.tr('`', '')}\n"
@@ -90,9 +90,9 @@ module GeneralCommands
         end
 
         if action == 'add'
-          event.author.add_role(CONFIG['class_roles'][r])
+          event.author.add_role(ROLES[r])
         else
-          event.author.remove_role(CONFIG['class_roles'][r])
+          event.author.remove_role(ROLES[r])
         end
         last_completed = r
       end
@@ -102,7 +102,7 @@ module GeneralCommands
       event.channel.send_embed do |embed|
         embed.fields = [
           { name: 'Usage:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" },
-          { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map { |k| k.ljust 7 }.join('` `')}`" },
+          { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
           { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' }
         ]
         embed.color = CONFIG['colors']['error']
@@ -111,13 +111,13 @@ module GeneralCommands
   end
 
   command(:yeet, description: 'yote') do |event|
-    event.send %w(
-      evan\ says\ "yote"
-      https://tenor.com/view/yeet-rafiki-simba-lion-king-gif-12559094
-      https://tenor.com/view/big-yeet-spinning-gif-11694855
-      https://tenor.com/view/dab-dancing-idgaf-gif-5661979
-      https://giphy.com/gifs/memecandy-J1ABRhlfvQNwIOiAas
-      https://tenor.com/view/bettywhite-dab-gif-5044603
-    ).sample
+    event.send [
+      'evan says "yote"',
+      'https://tenor.com/view/yeet-rafiki-simba-lion-king-gif-12559094',
+      'https://tenor.com/view/big-yeet-spinning-gif-11694855',
+      'https://tenor.com/view/dab-dancing-idgaf-gif-5661979',
+      'https://giphy.com/gifs/memecandy-J1ABRhlfvQNwIOiAas',
+      'https://tenor.com/view/bettywhite-dab-gif-5044603'
+    ].sample
   end
 end

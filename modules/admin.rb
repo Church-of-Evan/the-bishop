@@ -60,7 +60,7 @@ module AdminCommands
           description: 'Create a new class role and channel. [admin only]') do |event, name|
     return event.message.react '❓' unless name && name =~ /\w+\d+/
 
-    return 'That role already exists!' if CONFIG['class_roles'].key? name
+    return 'That role already exists!' if ROLES.key? name
 
     server = event.server
 
@@ -69,11 +69,11 @@ module AdminCommands
       name: name,
       mentionable: true
     )
-    CONFIG['class_roles'][name] = new_role.id
+    ROLES[name] = new_role.id
 
-    # sort role list in CONFIG file
-    CONFIG['class_roles'] = CONFIG['class_roles'].sort_by { |a| a[0][/\d+/].to_i }.to_h
-    File.write('config.yml', CONFIG.to_yaml)
+    # sort role list
+    ROLES.sort_by! { |a| a[0][/\d+/].to_i }.to_h
+    File.write('roles.yml', ROLES.to_yaml)
 
     can_view = Discordrb::Permissions.new
     can_view.can_read_messages = true # AKA view_channel
@@ -83,7 +83,7 @@ module AdminCommands
       parent: CONFIG['class_categories'][name[/\d+/].to_i / 100 * 100],
       permission_overwrites: [
         Discordrb::Overwrite.new(new_role, allow: can_view),
-        Discordrb::Overwrite.new(CONFIG['class_roles']['all'], allow: can_view),
+        Discordrb::Overwrite.new(ROLES['all'], allow: can_view),
         Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
       ]
     )
