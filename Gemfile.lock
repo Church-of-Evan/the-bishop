@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/shardlab/discordrb
   revision: 87ae658e54ddf03d918f0c5a05b7875f84791424
+  branch: main
   specs:
     discordrb (3.4.2)
       discordrb-webhooks (~> 3.4.2)

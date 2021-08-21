@@ -33,9 +33,39 @@ module SlashCommands
         embed.color = CONFIG['colors']['info']
       end
 
+      # since max of 25 choices per dropdown, break up by level
       components.row do |r|
-        r.select_menu(custom_id: 'role_add', placeholder: 'Select roles!', max_values: ROLES.size) do |s|
-          ROLES.each do |role, id|
+        # general roles (not class)
+        roles = ROLES.filter { |n, _| n.match?(/^\D+$/) }
+        r.select_menu(custom_id: 'role_add_general', placeholder: 'General roles', max_values: roles.size) do |s|
+         roles.each do |role, id|
+            s.option(label: role.capitalize, value: id.to_s)
+          end
+        end
+      end
+      components.row do |r|
+        # 100/200 level
+        roles = ROLES.filter { |n, _| n.match?(/[12]\d\d/) }
+        r.select_menu(custom_id: 'role_add_100/200', placeholder: '100/200-level classes', max_values: roles.size) do |s|
+          roles.each do |role, id|
+            s.option(label: role.upcase, value: id.to_s)
+          end
+        end
+      end
+      components.row do |r|
+        # 300 level
+        roles = ROLES.filter { |n, _| n.match?(/3\d\d/) }
+        r.select_menu(custom_id: 'role_add_300', placeholder: '300-level classes', max_values: roles.size) do |s|
+          roles.each do |role, id|
+            s.option(label: role.upcase, value: id.to_s)
+          end
+        end
+      end
+      components.row do |r|
+        # 400 level
+        roles = ROLES.filter { |n, _| n.match?(/4\d\d/) }
+        r.select_menu(custom_id: 'role_add_400', placeholder: '400-level classes', max_values: roles.size) do |s|
+          roles.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
           end
         end
@@ -43,19 +73,21 @@ module SlashCommands
     end
   end
 
-  select_menu(custom_id: 'role_add') do |event|
-    # add disciple role here to allow access to server
-    event.user.add_role(CONFIG['roles']['disciple'])
+  %w(general 100/200 300 400).each do |level|
+    select_menu(custom_id: "role_add_#{level}") do |event|
+      # add disciple role here to allow access to server
+      event.user.add_role(CONFIG['roles']['disciple'])
 
-    # add requested roles from dropdown to user
-    event.values.each do |role_id| # rubocop:disable Style/HashEachMethods
-      event.user.add_role role_id
-    end
+      # add requested roles from dropdown to user
+      event.values.each do |role_id| # rubocop:disable Style/HashEachMethods
+        event.user.add_role role_id
+      end
 
-    event.update_message(ephemeral: true) do |builder|
-      builder.add_embed do |embed|
-        embed.description = "✅ Added #{event.values.size} roles"
-        embed.color = CONFIG['colors']['success']
+      event.respond(ephemeral: true) do |builder|
+        builder.add_embed do |embed|
+          embed.description = "✅ Added #{event.values.size} #{level}-level roles"
+          embed.color = CONFIG['colors']['success']
+        end
       end
     end
   end
