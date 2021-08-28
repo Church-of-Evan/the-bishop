@@ -6,8 +6,8 @@ module SlashCommands
   def self.register_commands(bot)
     puts 'registering command role'
     bot.register_application_command(:role, 'Manage your class roles', server_id: ENV['SERVER_ID']) do |cmd|
-      cmd.subcommand(:add, 'Give yourself class roles')
-      cmd.subcommand(:remove, 'Remove class roles from yourself')
+      cmd.subcommand(:add, 'Select class roles to add')
+      cmd.subcommand(:remove, 'Select roles to remove from yourself')
       cmd.subcommand(:list, 'List all valid class roles')
     end
   end
@@ -28,7 +28,7 @@ module SlashCommands
     event.respond(ephemeral: true) do |builder, components|
       builder.add_embed do |embed|
         embed.fields = [
-          { name: 'Role Selection', value: "Select roles in the dropdown below:\n(sorted by class number)" }
+          { name: 'Role Selection', value: "Select roles in the dropdowns below:\n(sorted by class number)" }
         ]
         embed.color = CONFIG['colors']['info']
       end
@@ -85,7 +85,7 @@ module SlashCommands
 
       event.respond(ephemeral: true) do |builder|
         builder.add_embed do |embed|
-          embed.description = "✅ Added #{event.values.size} #{level}-level roles"
+          embed.description = "✅ Added #{event.values.size} #{level}-level role#{'s' if event.values.size > 1}"
           embed.color = CONFIG['colors']['success']
         end
       end

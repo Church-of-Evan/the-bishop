@@ -73,6 +73,9 @@ module GeneralCommands
     if %w(add remove).include? action
       last_completed = 'role'
 
+      # noop if no roles given
+      return unless roles.any?
+
       roles.each do |r|
         r.downcase!
         unless ROLES[r]
@@ -80,13 +83,13 @@ module GeneralCommands
           event.message.react '❓'
           err_msg = "#{event.message.content.tr('`', '')}\n"
           err_msg += ' ' * err_msg.index(r, err_msg.index(last_completed) + 1) + '^' * r.length
-          return event.channel.send_embed do |embed|
-            embed.fields = [
-              { name: 'Role not recognized:', value: "```#{err_msg}```" },
-              { name: 'Example usage:', value: "`!role add cs325 cs381`\nCheck `!role` for valid roles" }
-            ]
-            embed.color = CONFIG['colors']['error']
-          end
+          embed = Discordrb::Webhooks::Embed.new
+          embed.fields = [
+            { name: 'Role not recognized:', value: "```#{err_msg}```" },
+            { name: 'Try using slash commands!', value: "`/role add`\n`/role remove`" }
+          ]
+          embed.color = CONFIG['colors']['error']
+          return event.message.reply! '', embed: embed
         end
 
         if action == 'add'
@@ -101,9 +104,10 @@ module GeneralCommands
     else # list roles if no action given
       event.channel.send_embed do |embed|
         embed.fields = [
-          { name: 'Usage:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" },
           { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
-          { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' }
+          { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
+          { name: 'Usage:', value: "`/role add`\n`/role remove`" },
+          { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
         ]
         embed.color = CONFIG['colors']['error']
       end
