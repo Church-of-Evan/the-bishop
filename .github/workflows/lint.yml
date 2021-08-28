@@ -1,6 +1,6 @@
 ---
 name: reviewdog lint
-on: [pull_request, push]
+on: [pull_request]
 jobs:
   rubocop:
     name: runner / rubocop
