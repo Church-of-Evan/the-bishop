@@ -2,7 +2,7 @@
 
 require 'tempfile'
 
-require_relative '../shared/latex'
+require_relative '../shared/latex_renderer'
 
 # praise count mutex
 PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
@@ -18,7 +18,7 @@ module GeneralCommands
     Tempfile.create(%w(equation png)) do |tempfile|
       tempfile.binmode
       begin
-        render_latex_equation(tempfile, equation)
+        LatexRenderer.render_latex_equation(tempfile, equation)
         event.send_file(tempfile, filename: 'equation.png')
       rescue StandardError => e
         event.send_embed do |embed|
@@ -73,26 +73,29 @@ module GeneralCommands
     if %w(add remove).include? action
       last_completed = 'role'
 
+      # noop if no roles given
+      return unless roles.any?
+
       roles.each do |r|
         r.downcase!
-        unless CONFIG['class_roles'][r]
+        unless ROLES[r]
           # if role not found
           event.message.react '❓'
           err_msg = "#{event.message.content.tr('`', '')}\n"
           err_msg += ' ' * err_msg.index(r, err_msg.index(last_completed) + 1) + '^' * r.length
-          return event.channel.send_embed do |embed|
-            embed.fields = [
-              { name: 'Role not recognized:', value: "```#{err_msg}```" },
-              { name: 'Example usage:', value: "`!role add cs325 cs381`\nCheck `!role` for valid roles" }
-            ]
-            embed.color = CONFIG['colors']['error']
-          end
+          embed = Discordrb::Webhooks::Embed.new
+          embed.fields = [
+            { name: 'Role not recognized:', value: "```#{err_msg}```" },
+            { name: 'Try using slash commands!', value: "`/role add`\n`/role remove`" }
+          ]
+          embed.color = CONFIG['colors']['error']
+          return event.message.reply! '', embed: embed
         end
 
         if action == 'add'
-          event.author.add_role(CONFIG['class_roles'][r])
+          event.author.add_role(ROLES[r])
         else
-          event.author.remove_role(CONFIG['class_roles'][r])
+          event.author.remove_role(ROLES[r])
         end
         last_completed = r
       end
@@ -101,9 +104,10 @@ module GeneralCommands
     else # list roles if no action given
       event.channel.send_embed do |embed|
         embed.fields = [
-          { name: 'Usage:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" },
-          { name: 'Valid roles:', value: "`#{CONFIG['class_roles'].keys.map { |k| k.ljust 7 }.join('` `')}`" },
-          { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' }
+          { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
+          { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
+          { name: 'Usage:', value: "`/role add`\n`/role remove`" },
+          { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
         ]
         embed.color = CONFIG['colors']['error']
       end
@@ -111,13 +115,13 @@ module GeneralCommands
   end
 
   command(:yeet, description: 'yote') do |event|
-    event.send %w(
-      evan\ says\ "yote"
-      https://tenor.com/view/yeet-rafiki-simba-lion-king-gif-12559094
-      https://tenor.com/view/big-yeet-spinning-gif-11694855
-      https://tenor.com/view/dab-dancing-idgaf-gif-5661979
-      https://giphy.com/gifs/memecandy-J1ABRhlfvQNwIOiAas
-      https://tenor.com/view/bettywhite-dab-gif-5044603
-    ).sample
+    event.send [
+      'evan says "yote"',
+      'https://tenor.com/view/yeet-rafiki-simba-lion-king-gif-12559094',
+      'https://tenor.com/view/big-yeet-spinning-gif-11694855',
+      'https://tenor.com/view/dab-dancing-idgaf-gif-5661979',
+      'https://giphy.com/gifs/memecandy-J1ABRhlfvQNwIOiAas',
+      'https://tenor.com/view/bettywhite-dab-gif-5044603'
+    ].sample
   end
 end

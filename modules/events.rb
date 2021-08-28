@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../shared/latex_renderer'
+
 module EventHandlers
   extend Discordrb::EventContainer
 
@@ -19,7 +21,7 @@ module EventHandlers
       Tempfile.create(%w(equation png)) do |tempfile|
         tempfile.binmode
         begin
-          render_latex_equation(tempfile, eqn)
+          LatexRenderer.render_latex_equation(tempfile, eqn)
           event.send_file(tempfile, filename: 'equation.png')
         rescue StandardError => e
           event.send_embed do |embed|
