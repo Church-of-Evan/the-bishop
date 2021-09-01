@@ -20,7 +20,7 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
-    ffi (1.15.3)
+    ffi (1.15.4)
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
