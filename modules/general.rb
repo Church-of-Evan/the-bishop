@@ -86,7 +86,7 @@ module GeneralCommands
           embed = Discordrb::Webhooks::Embed.new
           embed.fields = [
             { name: 'Role not recognized:', value: "```#{err_msg}```" },
-            { name: 'Try using slash commands!', value: "`/role add`\n`/role remove`" }
+            { name: 'Example usage:', value: "`!role add cs325 cs381`\nCheck `!role` for valid roles" }
           ]
           embed.color = CONFIG['colors']['error']
           return event.message.reply! '', embed: embed
@@ -106,8 +106,7 @@ module GeneralCommands
         embed.fields = [
           { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
           { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
-          { name: 'Usage:', value: "`/role add`\n`/role remove`" },
-          { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
+          { name: 'Usage:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
         ]
         embed.color = CONFIG['colors']['error']
       end
