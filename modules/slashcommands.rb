@@ -95,7 +95,7 @@ module SlashCommands
   application_command(:role).subcommand(:remove) do |event|
     event.respond(ephemeral: true) do |builder, components|
       # figure out what class roles the user has
-      common_r = event.user.roles.map(&:id) & ROLES.values
+      common_roles = event.user.roles.map(&:id) & ROLES.values
 
       if common_roles.empty?
         builder.add_embed do |embed|
