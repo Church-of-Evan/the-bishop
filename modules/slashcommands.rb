@@ -116,7 +116,7 @@ module SlashCommands
 
       components.row do |row|
         row.select_menu(custom_id: 'role_remove', placeholder: 'Select roles!', max_values: common_r.size) do |s|
-          common_r.each do |id|
+          common_roles.each do |id|
             s.option(label: ROLES.key(id).upcase, value: id.to_s)
           end
         end
