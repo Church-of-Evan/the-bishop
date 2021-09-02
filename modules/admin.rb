@@ -95,6 +95,8 @@ module AdminCommands
   end
 
   command(:role_message, required_roles: [CONFIG['roles']['admin']]) do |event|
+    event.message.delete
+
     event.send_embed do |embed, components|
       embed.fields = [
         { name: 'Role Selection', value: "Select roles in the dropdowns below:\n(sorted by class number)" }
