@@ -60,7 +60,7 @@ module AdminCommands
           description: 'Create a new class role and channel. [admin only]') do |event, name|
     return event.message.react '❓' unless name && name =~ /\w+\d+/
 
-    return 'That role already exists!' if ROLES.roles.key? name
+    return 'That role already exists!' if ROLES.key? name
 
     server = event.server
 
@@ -69,11 +69,11 @@ module AdminCommands
       name: name,
       mentionable: true
     )
-    ROLES.roles[name] = new_role.id
+    ROLES[name] = new_role.id
 
     # sort role list
-    ROLES.roles = ROLES.roles.sort_by { |a| a[0][/\d+/].to_i }.to_h
-    File.write('roles.yml', ROLES.roles.to_yaml)
+    sorted_roles = ROLES.sort_by { |a| a[0][/\d+/].to_i }.to_h
+    File.write('roles.yml', sorted_roles.to_yaml)
 
     can_view = Discordrb::Permissions.new
     can_view.can_read_messages = true # AKA view_channel
@@ -83,7 +83,7 @@ module AdminCommands
       parent: CONFIG['class_categories'][name[/\d+/].to_i / 100 * 100],
       permission_overwrites: [
         Discordrb::Overwrite.new(new_role, allow: can_view),
-        Discordrb::Overwrite.new(ROLES.roles['all'], allow: can_view),
+        Discordrb::Overwrite.new(ROLES['all'], allow: can_view),
         Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
       ]
     )
@@ -106,7 +106,7 @@ module AdminCommands
       # since max of 25 choices per dropdown, break up by level
       components.row do |row|
         # general roles (not class)
-        r = ROLES.roles.filter { |n, _| n.match?(/^\D+$/) }
+        r = ROLES.filter { |n, _| n.match?(/^\D+$/) }
         row.select_menu(custom_id: 'role_add_general', placeholder: 'General roles', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.capitalize, value: id.to_s)
@@ -115,7 +115,7 @@ module AdminCommands
       end
       components.row do |row|
         # 100/200 level
-        r = ROLES.roles.filter { |n, _| n.match?(/[12]\d\d/) }
+        r = ROLES.filter { |n, _| n.match?(/[12]\d\d/) }
         row.select_menu(custom_id: 'role_add_100/200', placeholder: '100/200-level classes',
                         max_values: r.size) do |s|
           r.each do |role, id|
@@ -125,7 +125,7 @@ module AdminCommands
       end
       components.row do |row|
         # 300 level
-        r = ROLES.roles.filter { |n, _| n.match?(/3\d\d/) }
+        r = ROLES.filter { |n, _| n.match?(/3\d\d/) }
         row.select_menu(custom_id: 'role_add_300', placeholder: '300-level classes', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
@@ -134,7 +134,7 @@ module AdminCommands
       end
       components.row do |row|
         # 400 level
-        r = ROLES.roles.filter { |n, _| n.match?(/4\d\d/) }
+        r = ROLES.filter { |n, _| n.match?(/4\d\d/) }
         row.select_menu(custom_id: 'role_add_400', placeholder: '400-level classes', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
