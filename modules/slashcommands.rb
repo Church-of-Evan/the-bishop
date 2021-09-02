@@ -16,7 +16,7 @@ module SlashCommands
     event.respond ephemeral: true do |builder|
       builder.add_embed do |embed|
         embed.fields = [
-          { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
+          { name: 'Valid roles:', value: "`#{ROLES.roles.keys.map { |k| k.ljust 7 }.join('` `')}`" },
           { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' }
         ]
         embed.color = CONFIG['colors']['error']
@@ -36,7 +36,7 @@ module SlashCommands
       # since max of 25 choices per dropdown, break up by level
       components.row do |row|
         # general roles (not class)
-        r = ROLES.filter { |n, _| n.match?(/^\D+$/) }
+        r = ROLES.roles.filter { |n, _| n.match?(/^\D+$/) }
         row.select_menu(custom_id: 'role_add_general', placeholder: 'General roles', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.capitalize, value: id.to_s)
@@ -45,7 +45,7 @@ module SlashCommands
       end
       components.row do |row|
         # 100/200 level
-        r = ROLES.filter { |n, _| n.match?(/[12]\d\d/) }
+        r = ROLES.roles.filter { |n, _| n.match?(/[12]\d\d/) }
         row.select_menu(custom_id: 'role_add_100/200', placeholder: '100/200-level classes', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
@@ -54,7 +54,7 @@ module SlashCommands
       end
       components.row do |row|
         # 300 level
-        r = ROLES.filter { |n, _| n.match?(/3\d\d/) }
+        r = ROLES.roles.filter { |n, _| n.match?(/3\d\d/) }
         row.select_menu(custom_id: 'role_add_300', placeholder: '300-level classes', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
@@ -63,7 +63,7 @@ module SlashCommands
       end
       components.row do |row|
         # 400 level
-        r = ROLES.filter { |n, _| n.match?(/4\d\d/) }
+        r = ROLES.roles.filter { |n, _| n.match?(/4\d\d/) }
         row.select_menu(custom_id: 'role_add_400', placeholder: '400-level classes', max_values: r.size) do |s|
           r.each do |role, id|
             s.option(label: role.upcase, value: id.to_s)
@@ -95,7 +95,7 @@ module SlashCommands
   application_command(:role).subcommand(:remove) do |event|
     event.respond(ephemeral: true) do |builder, components|
       # figure out what class roles the user has
-      common_roles = event.user.roles.map(&:id) & ROLES.values
+      common_roles = event.user.roles.map(&:id) & ROLES.roles.values
 
       if common_roles.empty?
         builder.add_embed do |embed|
@@ -117,7 +117,7 @@ module SlashCommands
       components.row do |row|
         row.select_menu(custom_id: 'role_remove', placeholder: 'Select roles!', max_values: common_roles.size) do |s|
           common_roles.each do |id|
-            s.option(label: ROLES.key(id).upcase, value: id.to_s)
+            s.option(label: ROLES.roles.key(id).upcase, value: id.to_s)
           end
         end
       end
