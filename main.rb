@@ -5,7 +5,7 @@ require 'discordrb'
 require 'yaml'
 
 CONFIG = YAML.load_file('config.yml')
-ROLES = YAML.load_file('roles.yml')
+roles = YAML.load_file('roles.yml')
 
 # load inital files
 module_files = Dir.glob(File.join('modules', '*.rb'))
