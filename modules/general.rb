@@ -78,7 +78,7 @@ module GeneralCommands
 
       roles.each do |r|
         r.downcase!
-        unless roles[r]
+        unless ROLES[r]
           # if role not found
           event.message.react '❓'
           err_msg = "#{event.message.content.tr('`', '')}\n"
@@ -93,9 +93,9 @@ module GeneralCommands
         end
 
         if action == 'add'
-          event.author.add_role(roles[r])
+          event.author.add_role(ROLES[r])
         else
-          event.author.remove_role(roles[r])
+          event.author.remove_role(ROLES[r])
         end
         last_completed = r
       end
@@ -104,7 +104,7 @@ module GeneralCommands
     else # list roles if no action given
       event.channel.send_embed do |embed|
         embed.fields = [
-          { name: 'Valid roles:', value: "`#{roles.keys.map { |k| k.ljust 7 }.join('` `')}`" },
+          { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
           { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
           { name: 'Usage:', value: "`/role add`\n`/role remove`" },
           { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
