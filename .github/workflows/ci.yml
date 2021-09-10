@@ -1,0 +1,26 @@
+---
+name: ci
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  rubocop:
+    name: rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+      - name: RuboCop
+        uses: reviewdog/action-rubocop@v2
+        with:
+          rubocop_version: gemfile
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review # Default is github-pr-check
