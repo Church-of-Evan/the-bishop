@@ -18,11 +18,6 @@ class_categories:
   400: 4444
   500: 5555
 
-class_roles:
-  all: 1234
-  gaming: 1234
-  cs100: 1234
-
 colors:
   success: 4CAF50
   error: f44336
