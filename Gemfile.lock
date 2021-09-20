@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: 87ae658e54ddf03d918f0c5a05b7875f84791424
+  revision: fba8e49de916d872774d334aa936152eee27ba23
   branch: main
   specs:
     discordrb (3.4.2)
@@ -62,7 +62,7 @@ GEM
     ruby-progressbar (1.11.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.7)
+    unf_ext (0.0.8)
     unicode-display_width (2.1.0)
     websocket (1.2.9)
     websocket-client-simple (0.3.0)
