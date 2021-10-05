@@ -9,8 +9,19 @@ ROLES =  YAML.load_file('roles.yml')
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
-# load files
-Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
+def reload_modules(bot)
+  # remove all current handlers
+  bot.clear!
+
+  # force reload with load() instead of require()
+  Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
+
+  # # re-register handlers into bot
+  EvanBot::Modules.constants.each do |const|
+    Discordrb::LOGGER.info "Loading #{const}"
+    bot.include! EvanBot::Modules.const_get(const)
+  end
+end
 
 # load modules
 reload_modules(bot)

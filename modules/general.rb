@@ -104,10 +104,14 @@ module EvanBot
           event.message.react '✅'
 
         else # list roles if no action given
+          general_roles = ROLES.filter { |n, _| n.match?(/^\D+$/) }
+          class_roles = ROLES.filter { |n, _| n.match?(/\d/) }
+
           event.channel.send_embed do |embed|
             embed.fields = [
-              { name: 'Valid roles:', value: "`#{ROLES.keys.map { |k| k.ljust 7 }.join('` `')}`" },
               { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
+              { name: 'General roles:', value: "`#{general_roles.keys.join('` `')}`" },
+              { name: 'Class roles:', value: "`#{class_roles.keys.map { |k| k.ljust 7 }.join('` `')}`" },
               { name: 'Usage:', value: "`/role add`\n`/role remove`" },
               { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
             ]

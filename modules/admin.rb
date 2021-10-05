@@ -2,20 +2,6 @@
 
 require 'open3'
 
-def reload_modules(bot)
-  # remove all current handlers
-  bot.clear!
-
-  # force reload with load() instead of require()
-  Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
-
-  # # re-register handlers into bot
-  EvanBot::Modules.constants.each do |const|
-    Discordrb::LOGGER.info "Loading #{const}"
-    bot.include! EvanBot::Modules.const_get(const)
-  end
-end
-
 module EvanBot
   module Modules
     module AdminCommands
