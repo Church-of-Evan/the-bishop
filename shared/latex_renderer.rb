@@ -19,7 +19,7 @@ module LatexRenderer
     eqn_filters.each { |from, to| equation.gsub!(from, to) }
     equation.strip!
 
-    raw_image = Mathematical.new(format: :png, ppi: 500.0).render("$#{equation}$")
+    raw_image = Mathematical.new(format: :png, ppi: 500.0).render("$$#{equation}$$")
 
     raise raw_image[:exception] if raw_image[:exception]
 
