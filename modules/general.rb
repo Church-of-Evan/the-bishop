@@ -20,7 +20,7 @@ module EvanBot
         Tempfile.create(%w(equation png)) do |tempfile|
           tempfile.binmode
           begin
-            LatexRenderer.render_latex_equation(tempfile, equation)
+            LatexRenderer.render_latex_equation(tempfile, "$#{equation}$")
             event.send_file(tempfile, filename: 'equation.png')
           rescue StandardError => e
             event.send_embed do |embed|

@@ -8,17 +8,13 @@ module LatexRenderer
   # @param file [File] The file to render the equation to.
   #   Must already exist, as this does not set a filename!
   # @param equation [String] The equation to render.
-  #   Enclosing $s should not be passed in.
-  def self.render_latex_equation(file, equation)
-    eqn_filters = [
-      ['```tex', ''], # remove any `s for code block
-      ['`', ''],      # remove any `s for code block
-      ['\\\\', '\\'], # prevent double backslash, needed to make latex rendering work
-    ]
-    eqn_filters.each { |from, to| equation.gsub!(from, to) }
-    equation.strip!
 
-    raw_image = Mathematical.new(format: :png, ppi: 500.0).render(equation)
+  def self.render_latex_equation(file, equation)
+    raw_image = Mathematical.new(format: :png, ppi: 500.0).render(
+      equation.gsub(/(`|```(tex)?)/, '') # remove any `s from code block
+              .gsub('\\\\', '\\') # prevent double backslash, needed to make latex rendering work
+              .strip
+    )
 
     raise raw_image[:exception] if raw_image[:exception]
 
