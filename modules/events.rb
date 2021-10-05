@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../shared/latex_renderer'
+require 'math-to-itex'
 
 module EvanBot
   module Modules
@@ -18,8 +19,9 @@ module EvanBot
         end
 
         # render any latex math equations in message
-        equations = event.message.content.scan(/(?:^|\s)\$\$?(.+?)\$\$?(?:$|\s)/).flatten
-        equations.each do |eqn|
+        MathToItex(event.message.content).convert do |eqn|
+          Discordrb::LOGGER.info "rendering equation from event: #{eqn}"
+
           Tempfile.create(%w(equation png)) do |tempfile|
             tempfile.binmode
             begin
@@ -34,6 +36,8 @@ module EvanBot
             end
           end
         end
+
+        nil
       end
     end
   end

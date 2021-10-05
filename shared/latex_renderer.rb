@@ -12,14 +12,13 @@ module LatexRenderer
   def self.render_latex_equation(file, equation)
     eqn_filters = [
       ['```tex', ''], # remove any `s for code block
-      ['`', ''], # remove any `s for code block
+      ['`', ''],      # remove any `s for code block
       ['\\\\', '\\'], # prevent double backslash, needed to make latex rendering work
-      ['$', '\\$'] # $ is to enter/exit math mode but already in math mode so ignore
     ]
     eqn_filters.each { |from, to| equation.gsub!(from, to) }
     equation.strip!
 
-    raw_image = Mathematical.new(format: :png, ppi: 500.0).render("$$#{equation}$$")
+    raw_image = Mathematical.new(format: :png, ppi: 500.0).render(equation)
 
     raise raw_image[:exception] if raw_image[:exception]
 
