@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: 68ecd8453287ed9a9d04ae80453e4638ef027298
+  revision: 5e0dfe513d4841214e7e2c17ff2eac6068ae702c
   branch: main
   specs:
     discordrb (3.4.2)
