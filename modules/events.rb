@@ -19,7 +19,15 @@ module EvanBot
         end
 
         # render any latex math equations in message
-        MathToItex(event.message.content).convert do |eqn|
+        # equations need whitespace before and after, and no whitespace adjacent within the $s
+        # e.g. "this $ is not valid$"
+        #      "$this is$"
+        #      "so is $$this one$$ too"
+        #      "but$ not $this"
+        equations = event.message.content.scan(/(?:^|\s)(\$\$?)(\S.*?\S?)\1(?:$|\s)/)
+        # add $ back around equation
+        equations.map! { |m| m[0] + m[1] + m[0] }
+        equations.each do |eqn|
           Discordrb::LOGGER.info "rendering equation from event: #{eqn}"
 
           Tempfile.create(%w(equation png)) do |tempfile|
