@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../shared/latex_renderer'
-require 'math-to-itex'
 
 module EvanBot
   module Modules
