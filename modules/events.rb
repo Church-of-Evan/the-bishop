@@ -24,7 +24,7 @@ module EvanBot
         #      "$this is$"
         #      "so is $$this one$$ too"
         #      "but$ not $this"
-        equations = event.message.content.scan(/(?:^|\s)(\$\$?)(\S.*?\S?)\1(?:$|\s)/)
+        equations = event.message.content.scan(/(?:^|\s)(\$\$?)(\S.*\S)\1(?:$|\s)/)
         # add $ back around equation
         equations.map! { |m| m[0] + m[1] + m[0] }
         equations.each do |eqn|
