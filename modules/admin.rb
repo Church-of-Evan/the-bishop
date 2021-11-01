@@ -12,6 +12,9 @@ module EvanBot
               description: 'Update bot to latest commit') do |event|
         event.message.react '⌛'
 
+        # reset lockfile because bunder on ubuntu changes the version string >:(
+        `git checkout -- Gemfile.lock`
+
         _out, err, status = Open3.capture3 'git fetch --prune && git pull'
 
         if status != 0
