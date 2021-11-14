@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: 5e0dfe513d4841214e7e2c17ff2eac6068ae702c
+  revision: 79b717099cf7ad2746be757e3a6a4bb32886ee4b
   branch: main
   specs:
     discordrb (3.4.2)
@@ -24,7 +24,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     mathematical (1.6.14)
       ruby-enum (~> 0.4)
@@ -55,7 +55,7 @@ GEM
       rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.12.0)
+    rubocop-ast (1.13.0)
       parser (>= 3.0.1.1)
     ruby-enum (0.9.0)
       i18n

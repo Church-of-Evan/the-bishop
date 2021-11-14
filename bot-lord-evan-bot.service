@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/var/bots/lord-evan-bot/
+WorkingDirectory=/var/bots/the-bishop/
 ExecStartPre=bundle install
 ExecStart=bundle exec ruby main.rb
 Restart=always
