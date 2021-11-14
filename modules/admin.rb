@@ -53,25 +53,21 @@ module EvanBot
         server = event.server
 
         # update role list with new role
-        new_role = server.create_role(
-          name: name,
-          mentionable: true
-        )
+        new_role = server.create_role(name: name, mentionable: true)
         ROLES[name] = new_role.id
 
         # sort role list
         sorted_roles = ROLES.sort_by { |a| a[0][/\d+/].to_i }.to_h
         File.write('roles.yml', sorted_roles.to_yaml)
 
-        can_view = Discordrb::Permissions.new
-        can_view.can_read_messages = true # AKA view_channel
+        can_view = Discordrb::Permissions.new [:read_messages]
 
         new_channel = server.create_channel(
           "#{name.insert(name =~ /\d/, '-')}-questions",
           parent: CONFIG['class_categories'][name[/\d+/].to_i / 100 * 100],
           permission_overwrites: [
             Discordrb::Overwrite.new(new_role, allow: can_view),
-            Discordrb::Overwrite.new(ROLES['all'], allow: can_view),
+            Discordrb::Overwrite.new(ROLES['allclasses'], allow: can_view),
             Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
           ]
         )
