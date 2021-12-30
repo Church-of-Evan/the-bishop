@@ -84,7 +84,7 @@ module EvanBot
               # if role not found
               event.message.react '❓'
               err_msg = "#{event.message.content.tr('`', '')}\n"
-              err_msg += ' ' * err_msg.index(r, err_msg.index(last_completed) + 1) + '^' * r.length
+              err_msg += (' ' * err_msg.index(r, err_msg.index(last_completed) + 1)) + ('^' * r.length)
               embed = Discordrb::Webhooks::Embed.new
               embed.fields = [
                 { name: 'Role not recognized:', value: "```#{err_msg}```" },
