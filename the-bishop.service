@@ -1,12 +1,12 @@
 [Unit]
-Description=Lord Evan Discord Bot
+Description=The Bishop Discord Bot
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
 WorkingDirectory=/var/bots/the-bishop/
-ExecStartPre=bundle install
+ExecStartPre=bundle install --deployment
 ExecStart=bundle exec ruby main.rb
 Restart=always
 User=bots

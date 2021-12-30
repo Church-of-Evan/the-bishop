@@ -9,6 +9,7 @@ gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 gem 'mathematical'
 gem 'mini_magick'
 
-group :dev do
-  gem 'rubocop'
-end
+# group :dev do
+#   gem 'rubocop'
+# end
+
