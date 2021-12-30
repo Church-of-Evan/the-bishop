@@ -7,6 +7,12 @@ module EvanBot
 
       def self.register_commands(bot)
         Discordrb::LOGGER.info 'Registering /role'
+
+        if bot.get_application_commands(server_id: ENV['SERVER_ID']).any? { |c| c.name == 'role' }
+          Discordrb::LOGGER.info '  already registered, skipping'
+          return
+        end
+
         bot.register_application_command(:role, 'Manage your class roles', server_id: ENV['SERVER_ID']) do |cmd|
           cmd.subcommand(:add, 'Select class roles to add')
           cmd.subcommand(:remove, 'Select roles to remove from yourself')

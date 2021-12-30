@@ -12,4 +12,3 @@ gem 'mini_magick'
 # group :dev do
 #   gem 'rubocop'
 # end
-

@@ -88,6 +88,8 @@ module EvanBot
               embed = Discordrb::Webhooks::Embed.new
               embed.fields = [
                 { name: 'Role not recognized:', value: "```#{err_msg}```" },
+                { name: 'Missing a class?',
+                  value: 'If we are missing a class, let us know and we will add a channel!' },
                 { name: 'Try using slash commands!', value: "`/role add`\n`/role remove`" }
               ]
               embed.color = CONFIG['colors']['error']
