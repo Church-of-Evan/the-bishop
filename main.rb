@@ -5,7 +5,7 @@ require 'discordrb'
 require 'yaml'
 
 CONFIG = YAML.load_file('config.yml')
-ROLES =  YAML.load_file('roles.yml')
+ROLES = YAML.load_file('roles.yml')
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 

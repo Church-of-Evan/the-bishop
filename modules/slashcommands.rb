@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../shared/role_components'
+
 module EvanBot
   module Modules
     module SlashCommands
@@ -39,52 +41,10 @@ module EvanBot
       end
 
       application_command(:role).subcommand(:add) do |event|
-        event.respond(ephemeral: true) do |builder, components|
-          builder.add_embed do |embed|
-            embed.fields = [
-              { name: 'Role Selection', value: "Select roles in the dropdowns below:\n(sorted by class number)" }
-            ]
-            embed.color = CONFIG['colors']['info']
-          end
-
-          # since max of 25 choices per dropdown, break up by level
-          components.row do |row|
-            # general roles (not class)
-            r = ROLES.filter { |n, _| n.match?(/^\D+$/) }
-            row.select_menu(custom_id: 'role_add_general', placeholder: 'General roles', max_values: r.size) do |s|
-              r.each do |role, id|
-                s.option(label: role.capitalize, value: id.to_s)
-              end
-            end
-          end
-          components.row do |row|
-            # 100/200 level
-            r = ROLES.filter { |n, _| n.match?(/[12]\d\d/) }
-            row.select_menu(custom_id: 'role_add_100/200', placeholder: '100/200-level classes',
-                            max_values: r.size) do |s|
-              r.each do |role, id|
-                s.option(label: role.upcase, value: id.to_s)
-              end
-            end
-          end
-          components.row do |row|
-            # 300 level
-            r = ROLES.filter { |n, _| n.match?(/3\d\d/) }
-            row.select_menu(custom_id: 'role_add_300', placeholder: '300-level classes', max_values: r.size) do |s|
-              r.each do |role, id|
-                s.option(label: role.upcase, value: id.to_s)
-              end
-            end
-          end
-          components.row do |row|
-            # 400 level
-            r = ROLES.filter { |n, _| n.match?(/4\d\d/) }
-            row.select_menu(custom_id: 'role_add_400', placeholder: '400-level classes', max_values: r.size) do |s|
-              r.each do |role, id|
-                s.option(label: role.upcase, value: id.to_s)
-              end
-            end
-          end
+        event.respond(ephemeral: true) do |builder, view|
+          embed = Discordrb::Webhooks::Embed.new
+          RoleComponentBuilder.role_add_selects(embed, view)
+          builder << embed
         end
       end
 
@@ -94,9 +54,7 @@ module EvanBot
           event.user.add_role(CONFIG['roles']['disciple'])
 
           # add requested roles from dropdown to user
-          event.values.each do |role_id| # rubocop:disable Style/HashEachMethods
-            event.user.add_role role_id
-          end
+          event.values.each { |role_id| event.user.add_role role_id } # rubocop:disable Style/HashEachMethods
 
           event.respond(ephemeral: true) do |builder|
             builder.add_embed do |embed|
@@ -108,7 +66,7 @@ module EvanBot
       end
 
       application_command(:role).subcommand(:remove) do |event|
-        event.respond(ephemeral: true) do |builder, components|
+        event.respond(ephemeral: true) do |builder, view|
           # figure out what class roles the user has
           common_roles = event.user.roles.map(&:id) & ROLES.values
 
@@ -129,7 +87,7 @@ module EvanBot
             embed.color = CONFIG['colors']['info']
           end
 
-          components.row do |row|
+          view.row do |row|
             row.select_menu(custom_id: 'role_remove', placeholder: 'Select roles!',
                             max_values: common_roles.size) do |s|
               common_roles.each do |id|
@@ -142,9 +100,7 @@ module EvanBot
 
       select_menu(custom_id: 'role_remove') do |event|
         # remove requested roles from dropdown to user
-        event.values.each do |role_id| # rubocop:disable Style/HashEachMethods
-          event.user.remove_role role_id
-        end
+        event.values.each { |role_id| event.user.remove_role role_id } # rubocop:disable Style/HashEachMethods
 
         event.update_message(ephemeral: true) do |builder|
           builder.add_embed do |embed|

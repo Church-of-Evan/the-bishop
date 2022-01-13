@@ -50,7 +50,7 @@ module EvanBot
 
       command(:praise, channels: [CONFIG['chapel_channel'], CONFIG['testing_channel']]) do |event|
         PRAISE_MUTEX.synchronize do
-          praises = File.open('praises').read.to_i
+          praises = File.read('praises').to_i
           praises += 1
           event.channel.send_embed do |embed|
             embed.title = '🙏 Praise be to Evan! 🙏'
@@ -60,7 +60,7 @@ module EvanBot
               url: 'https://media.discordapp.net/attachments/758182759683457035/758243415459627038/TempDorime.png'
             }
           end
-          File.open('praises', 'w') { |f| f.write praises }
+          File.write('praises', praises)
           nil
         end
       end
