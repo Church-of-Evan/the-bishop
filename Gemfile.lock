@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: a1083b0b944700f582356fec3babd3fe6804c2ca
+  revision: 6d1d7726f4aef6b6de6733f8085eb52d375dd386
   branch: main
   specs:
     discordrb (3.4.2)
@@ -19,7 +19,7 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
-    ffi (1.15.4)
+    ffi (1.15.5)
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
