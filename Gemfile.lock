@@ -50,6 +50,7 @@ GEM
       websocket
 
 PLATFORMS
+  aarch64-linux
   x86_64-linux
 
 DEPENDENCIES
