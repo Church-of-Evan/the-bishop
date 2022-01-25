@@ -12,8 +12,11 @@ Discord bot for a server I run. Does joke things and role moderation.
 ## Run with Docker
 
 ```sh
-docker build -t the-bishop .
-docker run -d the-bishop
+# build image
+docker build -t detjensrobert/the-bishop .
+# run container with config files
+docker run -d --name the-bishop -v $(pwd)/config.yml:/app/config.yml \
+   -v $(pwd)/roles.yml:/app/roles.yml detjensrobert/the-bishop
 ```
 
 ## Run locally
