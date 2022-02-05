@@ -60,7 +60,7 @@ module EvanBot
 
         # sort role list
         sorted_roles = ROLES.sort_by { |a| a[0][/\d+/].to_i }.to_h
-        File.write('roles.yml', sorted_roles.to_yaml)
+        File.write(OPTIONS['--roles-file'], sorted_roles.to_yaml)
 
         can_view = Discordrb::Permissions.new [:read_messages]
 

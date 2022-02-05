@@ -2,24 +2,47 @@
 # frozen_string_literal: true
 
 require 'discordrb'
+require 'docopt'
 require 'yaml'
 
-CONFIG = YAML.load_file('config.yml')
-ROLES = YAML.load_file('roles.yml')
+doc = <<~DOCOPT
+  The Bishop moderation bot.
+
+  Usage:
+    #{__FILE__} [--config-file=FILE] [--roles-file=FILE]
+
+  Options:
+    -h --help                   Show this screen.
+    -c --config-file FILE       Path to config file [default: config.yml]
+    -r --roles-file FILE        Path to roles file [default: roles.yml]
+DOCOPT
+
+OPTIONS = Docopt.docopt(doc)
+Discordrb::LOGGER.debug "Options: #{OPTIONS}"
+
+CONFIG = YAML.load_file(OPTIONS['--config-file'])
+ROLES = YAML.load_file(OPTIONS['--roles-file'])
+
+# initial load of command modules
+Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
 def reload_modules(bot)
   # remove all current handlers
   bot.clear!
+  bot.commands.each_key { |c| bot.remove_command(c) }
 
-  # force reload with load() instead of require()
+  # "unload" modules by un-defining container name
+  EvanBot::Modules.constants.each { |m| EvanBot::Modules.send(:remove_const, m) }
+
+  # force reload with load instead of require
   Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 
-  # # re-register handlers into bot
-  EvanBot::Modules.constants.each do |const|
-    Discordrb::LOGGER.info "Loading #{const}"
-    bot.include! EvanBot::Modules.const_get(const)
+  # re-register handlers into bot
+  EvanBot::Modules.constants.each do |m|
+    Discordrb::LOGGER.info "Loading #{m}"
+    bot.include! EvanBot::Modules.const_get(m)
   end
 end
 
@@ -32,7 +55,7 @@ EvanBot::Modules::SlashCommands.register_commands(bot)
 
 bot.ready do
   bot.listening = 'Evan'
-  Discordrb::LOGGER.info 'Ready.'
+  Discordrb::LOGGER.info "Logged in as #{bot.profile.username}"
 end
 
 # start bot

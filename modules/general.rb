@@ -45,7 +45,8 @@ module EvanBot
             end
           end
         end
-        nil
+
+        nil # prevent implicit return message
       end
 
       command(:praise, channels: [CONFIG['chapel_channel'], CONFIG['testing_channel']]) do |event|
