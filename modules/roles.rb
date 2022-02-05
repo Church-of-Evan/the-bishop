@@ -7,10 +7,10 @@ module EvanBot
 
       command(:role,
               aliases: [:roles],
-              # channels: [CONFIG['bot_channel'], CONFIG['testing_channel']],
+              channels: [CONFIG['bot_channel'], CONFIG['testing_channel']],
               description: 'Add class roles to see channels for each class') do |event, action, *roles|
         # add disciples role here to allow access to server
-        # event.author.add_role(CONFIG['roles']['disciple'])
+        event.author.add_role(CONFIG['roles']['disciple'])
 
         if %w(add remove).include? action
           last_completed = 'role'
