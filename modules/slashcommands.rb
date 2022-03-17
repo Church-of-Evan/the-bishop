@@ -2,7 +2,7 @@
 
 require_relative '../shared/role_components'
 
-module EvanBot
+module Bishop
   module Modules
     module SlashCommands
       extend Discordrb::EventContainer

@@ -7,7 +7,7 @@ require_relative '../shared/latex_renderer'
 # praise count mutex
 PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
 
-module EvanBot
+module Bishop
   module Modules
     module GeneralCommands
       extend Discordrb::Commands::CommandContainer

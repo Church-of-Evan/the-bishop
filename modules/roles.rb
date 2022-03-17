@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module EvanBot
+module Bishop
   module Modules
     module RoleCommands
       extend Discordrb::Commands::CommandContainer

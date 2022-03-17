@@ -34,15 +34,15 @@ def reload_modules(bot)
   bot.commands.each_key { |c| bot.remove_command(c) }
 
   # "unload" modules by un-defining container name
-  EvanBot::Modules.constants.each { |m| EvanBot::Modules.send(:remove_const, m) }
+  Bishop::Modules.constants.each { |m| Bishop::Modules.send(:remove_const, m) }
 
   # force reload with load instead of require
   Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 
   # re-register handlers into bot
-  EvanBot::Modules.constants.each do |m|
+  Bishop::Modules.constants.each do |m|
     Discordrb::LOGGER.info "Loading #{m}"
-    bot.include! EvanBot::Modules.const_get(m)
+    bot.include! Bishop::Modules.const_get(m)
   end
 end
 
@@ -51,7 +51,7 @@ reload_modules(bot)
 
 # register slash commands
 # this only needs to happen once so dont do it on !reload
-EvanBot::Modules::SlashCommands.register_commands(bot)
+Bishop::Modules::SlashCommands.register_commands(bot)
 
 bot.ready do
   bot.listening = 'Evan'

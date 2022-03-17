@@ -2,7 +2,7 @@
 
 require_relative '../shared/latex_renderer'
 
-module EvanBot
+module Bishop
   module Modules
     module EventHandlers
       extend Discordrb::EventContainer

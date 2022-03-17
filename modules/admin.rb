@@ -4,7 +4,7 @@ require 'open3'
 
 require_relative '../shared/role_components'
 
-module EvanBot
+module Bishop
   module Modules
     module AdminCommands
       extend Discordrb::Commands::CommandContainer
