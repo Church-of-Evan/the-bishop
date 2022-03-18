@@ -3,6 +3,7 @@
 require 'open3'
 
 require_relative '../shared/role_components'
+require_relative '../shared/classes_api'
 
 module Bishop
   module Modules
@@ -50,26 +51,31 @@ module Bishop
               description: 'Create a new class role and channel. [admin only]') do |event, name|
         return event.message.react '❓' unless name && name =~ /\w+\d+/
 
-        return 'That role already exists!' if ROLES.key? name
+        return 'That role already exists!' if ROLES['classes'].key? name
+
+        # try to fetch class name from classes.o.e api
+        title = ClassesAPI.get_class_title(name)
+        title ||= name.upcase # default to class slug if name not found
 
         server = event.server
 
         # update role list with new role
         new_role = server.create_role(name: name, mentionable: true)
-        ROLES[name] = new_role.id
+        ROLES['classes'][name] = { 'id' => new_role.id, 'title' => title }
 
-        # sort role list
-        sorted_roles = ROLES.sort_by { |a| a[0][/\d+/].to_i }.to_h
-        File.write(OPTIONS['--roles-file'], sorted_roles.to_yaml)
+        # sort updated role list and write to file
+        ROLES['classes'] = ROLES['classes'].sort_by { |slug, _data| slug[/\d+/].to_i }.to_h
+        File.write(OPTIONS['--roles-file'], ROLES.to_yaml)
 
+        # create new channel with visibility to roles
         can_view = Discordrb::Permissions.new [:read_messages]
 
         new_channel = server.create_channel(
-          "#{name.insert(name =~ /\d/, '-')}-questions",
+          "#{name.insert(name =~ /\d/, '-')}-#{title.gsub(/\s+/, '-')}",
           parent: CONFIG['class_categories'][name[/\d+/].to_i / 100 * 100],
           permission_overwrites: [
             Discordrb::Overwrite.new(new_role, allow: can_view),
-            Discordrb::Overwrite.new(ROLES['allclasses'], allow: can_view),
+            Discordrb::Overwrite.new(ROLES['general']['allclasses']['id'], allow: can_view),
             Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
           ]
         )
@@ -78,11 +84,6 @@ module Bishop
           embed.description = "Channel #{new_channel.mention} and role #{new_role.mention} created."
           embed.color = CONFIG['colors']['success']
         end
-
-        # restart to pick up sorted roles from file
-        # we can't sort ROLES in place because its a constant
-        # TODO: handle this better /shrug
-        exit
       end
 
       command(:role_message, required_roles: [CONFIG['roles']['admin']]) do |event|

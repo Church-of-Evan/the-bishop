@@ -24,18 +24,8 @@ module Bishop
 
       application_command(:role).subcommand(:list) do |event|
         event.respond ephemeral: true do |builder|
-          general_roles = ROLES.filter { |n, _| n.match?(/^\D+$/) }
-          class_roles = ROLES.filter { |n, _| n.match?(/\d/) }
-
           builder.add_embed do |embed|
-            embed.fields = [
-              { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
-              { name: 'General roles:', value: "`#{general_roles.keys.join('` `')}`" },
-              { name: 'Class roles:', value: "`#{class_roles.keys.map { |k| k.ljust 7 }.join('` `')}`" },
-              { name: 'Usage:', value: "`/role add`\n`/role remove`" },
-              { name: 'Legacy commands:', value: "`!role add foo [bar baz ...]`\n`!role remove foo [bar baz ...]`" }
-            ]
-            embed.color = CONFIG['colors']['error']
+            RoleComponentBuilder.role_list_embed(embed)
           end
         end
       end
@@ -58,7 +48,7 @@ module Bishop
 
           event.respond(ephemeral: true) do |builder|
             builder.add_embed do |embed|
-              embed.description = "✅ Added #{event.values.size} #{level}-level role#{'s' if event.values.size > 1}"
+              embed.description = "✅ Added #{event.values.size} #{level}-level role(s)"
               embed.color = CONFIG['colors']['success']
             end
           end
@@ -66,11 +56,13 @@ module Bishop
       end
 
       application_command(:role).subcommand(:remove) do |event|
-        event.respond(ephemeral: true) do |builder, view|
-          # figure out what class roles the user has
-          common_roles = event.user.roles.map(&:id) & ROLES.values
+        # figure out what class roles the user has
+        # union between user's own roles and all the roles the bot knows about
+        all_roles = ROLES['general'].merge ROLES['classes']
+        common_ids = event.user.roles.map(&:id) & all_roles.map { |_, r| r['id'] }
 
-          if common_roles.empty?
+        event.respond(ephemeral: true) do |builder, view|
+          if common_ids.empty?
             builder.add_embed do |embed|
               embed.fields = [
                 { name: "You don't have any roles to remove!", value: 'Add some roles with `/role add`' }
@@ -79,6 +71,16 @@ module Bishop
             end
             next
           end
+
+          # # truncate to the first 25 roles
+          # if common_ids.size >= 25
+          #   builder.add_embed do |embed|
+          #     embed.fields = [
+          #       { name: "You have more than 25 roles!", value: 'Only showing the first 25' }
+          #     ]
+          #     embed.color = CONFIG['colors']['warn']
+          #   end
+          # end
 
           builder.add_embed do |embed|
             embed.fields = [
@@ -89,9 +91,10 @@ module Bishop
 
           view.row do |row|
             row.select_menu(custom_id: 'role_remove', placeholder: 'Select roles!',
-                            max_values: common_roles.size) do |s|
-              common_roles.each do |id|
-                s.option(label: ROLES.key(id).upcase, value: id.to_s)
+                            max_values: common_ids.size) do |s|
+              common_ids.each do |id|
+                role = all_roles.find { |_r, v| v['id'] == id }
+                s.option(label: "#{role[0].upcase}: #{role[1]['title']}", value: id.to_s)
               end
             end
           end
@@ -104,7 +107,7 @@ module Bishop
 
         event.update_message(ephemeral: true) do |builder|
           builder.add_embed do |embed|
-            embed.description = "✅ Removed #{event.values.size} roles"
+            embed.description = "✅ Removed #{event.values.size} role(s)"
             embed.color = CONFIG['colors']['success']
           end
         end

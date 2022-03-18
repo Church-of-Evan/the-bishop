@@ -20,7 +20,10 @@ module Bishop
 
           roles.each do |r|
             r.downcase!
-            unless ROLES[r]
+
+            role_data = ROLES['general'][r] || ROLES['classes'][r]
+
+            unless role_data
               # if role not found
               event.message.react '❓'
               err_msg = "#{event.message.content.tr('`', '')}\n"
@@ -38,42 +41,17 @@ module Bishop
             end
 
             if action == 'add'
-              event.author.add_role(ROLES[r])
+              event.author.add_role(role_data['id'])
             else
-              event.author.remove_role(ROLES[r])
+              event.author.remove_role(role_data['id'])
             end
             last_completed = r
           end
           event.message.react '✅'
 
         else # list roles if no action given
-          general_roles = ROLES.filter { |n, _| n.match?(/^\D+$/) }
-          class_roles = ROLES.filter { |n, _| n.match?(/\d/) }
-
           event.channel.send_embed do |embed|
-            embed.fields = [
-              { name: 'Missing a class?',
-                value: 'If we are missing a class, let us know and we will add a channel!' },
-              { name: 'General roles:',
-                value: "`#{general_roles.keys.join('` `')}`" },
-              { name: 'Class roles:',
-                value: "`#{class_roles.keys.map { |k| k.ljust 7 }.join('` `')}`" },
-              { name: 'Slash commands:',
-                value: <<~USAGE,
-                  `/role list`
-                  `/role add`
-                  `/role remove`
-                USAGE
-                inline: true },
-              { name: 'Classic commands:',
-                value: <<~USAGE,
-                  `!role list`
-                  `!role add foo [bar baz ...]`
-                  `!role remove foo [bar baz ...]`
-                USAGE
-                inline: true }
-            ]
-            embed.color = CONFIG['colors']['error']
+            RoleComponentBuilder.role_list_embed(embed)
           end
         end
       end
