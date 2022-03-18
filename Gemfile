@@ -6,11 +6,12 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # use main branch for interactions
 gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
-gem 'docopt'
-gem 'mathematical'
-gem 'mini_magick'
 
-# group :dev do
-#   gem 'rubocop'
-#   gem 'standard'
-# end
+gem 'docopt', '~> 0.6.1'
+gem 'httparty', '~> 0.20.0'
+gem 'mathematical', '~> 1.6'
+gem 'mini_magick', '~> 4.11'
+
+group :dev do
+  gem 'rubocop'
+end
