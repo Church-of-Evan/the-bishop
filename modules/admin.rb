@@ -61,6 +61,7 @@ module Bishop
 
         # update role list with new role
         new_role = server.create_role(name: name, mentionable: true)
+        new_role.permissions.can_send_tts_messages = false
         ROLES['classes'][name] = { 'id' => new_role.id, 'title' => title }
 
         # sort updated role list and write to file
