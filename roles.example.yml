@@ -1,4 +1,24 @@
 ---
-all: 1234
-gaming: 2345
-cs123: 3456
+general:
+  allclasses:
+    id: 1111
+    title: All Classes
+  alumni:
+    id: 2222
+    title: Alumni
+  ecampus:
+    id: 3333
+    title: E-Campus
+  gradstudent:
+    id: 4444
+    title: Graduate Stutent
+  jobs:
+    id: 5555
+    title: Job-related Pings
+classes:
+  cs100:
+    id: 1234
+    title: 'Example Class'
+  cs200:
+    id: 2345
+    title: 'Another Example'
