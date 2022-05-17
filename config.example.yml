@@ -8,8 +8,10 @@ testing_channel: 1234
 
 roles:
   god: 1111
-  admin: 2222
-  disciple: 3333
+  admin:
+    - 2222
+    - 3333
+  disciple: 4444
 
 class_categories:
   100: 1111
