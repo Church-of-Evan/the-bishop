@@ -16,7 +16,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     docopt (0.6.1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -87,4 +87,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   2.2.26
+   2.3.7
