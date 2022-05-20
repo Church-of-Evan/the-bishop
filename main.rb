@@ -26,7 +26,7 @@ ROLES = YAML.load_file(OPTIONS['--roles-file'])
 # initial load of command modules
 Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 
-bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
+bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix'], help_message: :help
 
 def reload_modules(bot)
   # remove all current handlers
