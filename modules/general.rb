@@ -53,6 +53,7 @@ module Bishop
         PRAISE_MUTEX.synchronize do
           praises = File.read('praises').to_i
           praises += 1
+          File.write('praises', praises)
           event.channel.send_embed do |embed|
             embed.title = '🙏 Praise be to Evan! 🙏'
             embed.description = "*Praises x#{praises}*"
@@ -61,8 +62,6 @@ module Bishop
               url: 'https://media.discordapp.net/attachments/758182759683457035/758243415459627038/TempDorime.png'
             }
           end
-          File.write('praises', praises)
-          nil
         end
       end
 

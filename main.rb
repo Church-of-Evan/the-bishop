@@ -26,12 +26,12 @@ ROLES = YAML.load_file(OPTIONS['--roles-file'])
 # initial load of command modules
 Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 
-bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix'], help_message: :help
+bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
 def reload_modules(bot)
   # remove all current handlers
   bot.clear!
-  bot.commands.each_key { |c| bot.remove_command(c) }
+  bot.commands.keys.grep_v(:help).each { |c| bot.remove_command(c) }
 
   # "unload" modules by un-defining container name
   Bishop::Modules.constants.each { |m| Bishop::Modules.send(:remove_const, m) }

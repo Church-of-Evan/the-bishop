@@ -20,8 +20,8 @@ module Bishop
         # render any latex math equations in message
         # equations need whitespace before and after, and no whitespace adjacent within the $s
         # e.g. "this $ is not valid$"
-        #      "$this is$"
-        #      "so is $$this one$$ too"
+        #      "$this_is$"
+        #      "so is $this one$ too"
         #      "but$ not $this"
         equations = event.message.content.scan(/(?:^|\s)\$([^ $].*)\$(?:$|\s)/)
         # add $ back around equation
