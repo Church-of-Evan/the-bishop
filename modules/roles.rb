@@ -51,7 +51,7 @@ module Bishop
 
         else # list roles if no action given
           event.channel.send_embed do |embed|
-            RoleComponentBuilder.role_list_embed(embed)
+            SharedRoleComponents.make_list_embed(embed)
           end
         end
       end

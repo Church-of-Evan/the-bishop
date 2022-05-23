@@ -10,6 +10,7 @@ module Bishop
       def self.register_commands(bot)
         Discordrb::LOGGER.info 'Registering /role'
 
+        # if its already registered, just return and dont re-register it
         if bot.get_application_commands(server_id: ENV['SERVER_ID']).any? { |c| c.name == 'role' }
           Discordrb::LOGGER.info '  already registered, skipping'
           return
@@ -23,18 +24,19 @@ module Bishop
       end
 
       application_command(:role).subcommand(:list) do |event|
-        event.respond ephemeral: true do |builder|
+        event.respond(ephemeral: true) do |builder|
           builder.add_embed do |embed|
-            RoleComponentBuilder.role_list_embed(embed)
+            # build embed from
+            SharedRoleComponents.make_list_embed(embed)
           end
         end
       end
 
       application_command(:role).subcommand(:add) do |event|
         event.respond(ephemeral: true) do |builder, view|
-          embed = Discordrb::Webhooks::Embed.new
-          RoleComponentBuilder.role_add_selects(embed, view)
-          builder << embed
+          builder.add_embed do |embed|
+            SharedRoleComponents.add_selects(embed, view)
+          end
         end
       end
 

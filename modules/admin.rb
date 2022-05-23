@@ -91,7 +91,7 @@ module Bishop
         event.message.delete
 
         event.send_embed do |embed, view|
-          RoleComponentBuilder.role_add_selects(embed, view)
+          SharedRoleComponents.add_selects(embed, view)
         end
       end
     end

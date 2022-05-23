@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module RoleComponentBuilder
-  def self.role_list_embed(embed)
+module SharedRoleComponents
+  def self.make_list_embed(embed)
     embed.fields = [
       { name: 'Missing a class?', value: 'If we are missing a class, let us know and we will add a channel!' },
       { name: 'General roles:', value: "`#{ROLES['general'].keys.join('` `')}`" },
@@ -24,7 +24,7 @@ module RoleComponentBuilder
     embed.color = CONFIG['colors']['error']
   end
 
-  def self.role_add_selects(embed, view)
+  def self.add_selects(embed, view)
     embed.fields = [
       { name: 'Role Selection', value: "Select roles in the dropdowns below:\n(sorted by class number)" }
     ]
