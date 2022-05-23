@@ -11,9 +11,5 @@ ExecStart=bundle exec ruby main.rb
 Restart=always
 User=bots
 
-CPUAccounting=yes
-MemoryAccounting=yes
-IPAccounting=yes
-
 [Install]
 WantedBy=multi-user.target
