@@ -11,7 +11,7 @@ general:
     title: E-Campus
   gradstudent:
     id: 4444
-    title: Graduate Stutent
+    title: Graduate Student
   jobs:
     id: 5555
     title: Job-related Pings
