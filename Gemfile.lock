@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: 0bac5bca8f46f6729cfd4ee105265fc227998fcd
+  revision: aa134aa5d8dcd232e48ce494ce197a00f8f83adb
   branch: main
   specs:
     discordrb (3.4.2)
@@ -23,7 +23,7 @@ GEM
     event_emitter (0.2.6)
     ffi (1.15.5)
     http-accept (1.7.0)
-    http-cookie (1.0.4)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     httparty (0.20.0)
       mime-types (~> 3.0)
@@ -67,7 +67,7 @@ GEM
     ruby-progressbar (1.11.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1)
+    unf_ext (0.0.8.2)
     unicode-display_width (2.1.0)
     websocket (1.2.9)
     websocket-client-simple (0.5.1)
