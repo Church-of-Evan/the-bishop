@@ -16,7 +16,7 @@ module Bishop
           event.message.react ':zachL:797961331101794344'
           event.message.react ':zachR:797961330929303583'
         end
-        
+
         # react '#1 ULA' to James(outside of class channels)
         if event.author.id == 205400986716471297 && !(CONFIG['class_categories'].value? event.channel.parent_id)
           event.message.react ':hash:'
