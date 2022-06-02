@@ -19,8 +19,9 @@ module Bishop
 
         # react '#1 ULA' to James (outside of class channels)
         if event.author.id == 205400986716471297 && !(CONFIG['class_categories'].value? event.channel.parent_id)
-          #Randomizes the reactions to react to James' messages.
-          %w("#️⃣️ 1️⃣ 🐐 🇺 🇱 🇦").shuffle.each { |emote| event.message.react emote }
+          %w(#️⃣ 1️⃣ 🇺 🇱 🇦)
+            .insert(rand(0..5), '🐐') # put the goat somewhere random
+            .each { |e| event.message.react e }
         end
 
         # render any latex math equations in message
