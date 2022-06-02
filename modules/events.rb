@@ -19,12 +19,12 @@ module Bishop
 
         # react '#1 ULA' to James (outside of class channels)
         if event.author.id == 205400986716471297 && !(CONFIG['class_categories'].value? event.channel.parent_id)
-          event.message.react ':hash:'
-          event.message.react ':one:'
-          event.message.react ':goat:'
-          event.message.react ':regional_indicator_u:'
-          event.message.react ':regional_indicator_l:'
-          event.message.react ':regional_indicator_a:'
+          event.message.react '#️⃣'
+          event.message.react '1️⃣'
+          event.message.react '🐐'
+          event.message.react '🇺'
+          event.message.react '🇱'
+          event.message.react '🇦'
         end
 
         # render any latex math equations in message
