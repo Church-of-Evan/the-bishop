@@ -76,6 +76,14 @@ module Bishop
         ].sample
       end
 
+      command(:smallsh, aliases: %i[thattimeoftheyearagain]) do
+        'https://gist.github.com/detjensrobert/27cc771e6946c590a14a00ddb1eae0d8'
+      end
+
+      command(:otp, aliases: %i[onetimepads]) do
+        'https://gist.github.com/detjensrobert/7b0b2beb80f1a2cac49c4d9179b9e7b3'
+      end
+
       command(:lug, aliases: %i[plug]) do
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
