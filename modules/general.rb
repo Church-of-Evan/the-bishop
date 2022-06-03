@@ -84,6 +84,10 @@ module Bishop
         'https://gist.github.com/detjensrobert/7b0b2beb80f1a2cac49c4d9179b9e7b3'
       end
 
+      command(:forecasting) do
+        'https://docs.google.com/spreadsheets/d/1nO1AKQhwIzeB4EMpMmGn11HjBGGNundtWA0Pogi6-HY/edit'
+      end
+
       command(:lug, aliases: %i[plug]) do
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
