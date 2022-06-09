@@ -93,8 +93,8 @@ module Bishop
       end
 
       command(:roll) do |event, n|
-        if n.to_i <= 0
-          "You need to put in an integer that is equal to or greater than 1."
+        if n.to_i < 1
+          "❓"
         else
           "You rolled: #{rand(1..n.to_i)}"
       end
