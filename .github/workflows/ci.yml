@@ -3,9 +3,6 @@ name: ci
 
 "on":
   pull_request:
-  push:
-    branches:
-      - master
 
 jobs:
   rubocop:
@@ -22,5 +19,4 @@ jobs:
         uses: reviewdog/action-rubocop@v2
         with:
           rubocop_version: gemfile
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review # Default is github-pr-check
+          github_token: ${{ secrets.GITHUB_TOKEN }}
