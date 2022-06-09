@@ -97,6 +97,7 @@ module Bishop
           event.message.react '❓'
         else
           "You rolled: #{rand(1..n.to_i)}"
+        end
       end
     end
   end
