@@ -96,7 +96,7 @@ module Bishop
         if n.to_i <= 0
           "You need to put in an integer that is equal to or greater than 1."
         else
-          "You rolled: #{rand(1..n)}"
+          "You rolled: #{rand(1..n.to_i)}"
       end
     end
   end
