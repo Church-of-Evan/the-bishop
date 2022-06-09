@@ -94,7 +94,7 @@ module Bishop
 
       command(:roll) do |event, n|
         if n.to_i < 1
-          "❓"
+          event.message.react '❓'
         else
           "You rolled: #{rand(1..n.to_i)}"
       end
