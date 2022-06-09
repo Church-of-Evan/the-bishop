@@ -91,6 +91,14 @@ module Bishop
       command(:lug, aliases: %i[plug]) do
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
+
+      command(:roll) do |event, n|
+        if n.to_i < 1
+          event.message.react '❓'
+        else
+          "You rolled: #{rand(1..n.to_i)}"
+        end
+      end
     end
   end
 end
