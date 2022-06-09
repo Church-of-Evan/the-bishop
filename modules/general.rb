@@ -91,6 +91,13 @@ module Bishop
       command(:lug, aliases: %i[plug]) do
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
+
+      command(:roll) do |event, n|
+        if n.to_i <= 0
+          "You need to put in an integer that is equal to or greater than 1."
+        else
+          "You rolled: #{rand(1..n)}"
+      end
     end
   end
 end
