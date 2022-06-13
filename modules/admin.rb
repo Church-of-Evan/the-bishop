@@ -11,7 +11,7 @@ module Bishop
       extend Discordrb::Commands::CommandContainer
 
       command(:update,
-              allowed_roles: [CONFIG['roles']['admin'], CONFIG['roles']['botadmin']],
+              allowed_roles: CONFIG['roles']['admin'],
               description: 'Update bot to latest commit') do |event|
         event.message.react '⌛'
 
@@ -40,14 +40,14 @@ module Bishop
       end
 
       command(:reload,
-              allowed_roles: [CONFIG['roles']['admin'], CONFIG['roles']['botadmin']],
+              allowed_roles: CONFIG['roles']['admin'],
               description: 'Reload all command containers') do |event|
         reload_modules(event.bot)
         event.message.react '✅'
       end
 
       command(:newclass,
-              allowed_roles: [CONFIG['roles']['admin']],
+              allowed_roles: CONFIG['roles']['admin'],
               description: 'Create a new class role and channel. [admin only]') do |event, name|
         return event.message.react '❓' unless name && name =~ /\w+\d+/
 
@@ -87,7 +87,7 @@ module Bishop
         end
       end
 
-      command(:role_message, allowed_roles: [CONFIG['roles']['admin']]) do |event|
+      command(:role_message, allowed_roles: CONFIG['roles']['admin']) do |event|
         # event.message.delete
 
         # event.send_embed do |embed, view|
