@@ -85,9 +85,9 @@ module SharedRoleComponents
   def self.update_select_message(bot)
     rules_channel = bot.channel(CONFIG['rules_channel'])
     # the select message is bishop's first (and only) message in #rules
-    # select_message = rules_channel.history(10).filter { |m| m.author.id == bot.profile.id }.first
-    # but lets be smart here and check for the embed name
-    select_message = rules_channel.history(10).filter { |m| m.embeds.first.fields.first.name == 'Role Selection' }.first
+    select_message = rules_channel.history(10).filter { |m| m.author.id == bot.profile.id }.first
+    # this should be smart here and check for the embed name but this doesnt work :shrug:
+    # select_message = rules_channel.history(10).filter { |m| m.embeds.first.fields.first.name == 'Role Selection' }.first
 
     # update that message with new components
     # (edit_message does not yield, so gotta make new embed/components from scratch)
