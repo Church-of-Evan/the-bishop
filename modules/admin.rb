@@ -88,11 +88,14 @@ module Bishop
       end
 
       command(:role_message, allowed_roles: [CONFIG['roles']['admin']]) do |event|
-        event.message.delete
+        # event.message.delete
 
-        event.send_embed do |embed, view|
-          SharedRoleComponents.add_selects(embed, view)
-        end
+        # event.send_embed do |embed, view|
+        #   SharedRoleComponents.add_selects(embed, view)
+        # end
+
+        SharedRoleComponents.update_select_message(event.bot)
+        event.message.react '✅'
       end
     end
   end
