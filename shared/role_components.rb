@@ -81,4 +81,20 @@ module SharedRoleComponents
       end
     end
   end
+
+  def self.update_select_message(bot)
+    rules_channel = bot.channel(CONFIG['rules_channel'])
+    # the select message is bishop's first (and only) message in #rules
+    # select_message = rules_channel.history(10).filter { |m| m.author.id == bot.profile.id }.first
+    # but lets be smart here and check for the embed name
+    select_message = rules_channel.history(10).filter { |m| m.embeds.first.fields.first.name == 'Role Selection' }.first
+
+    # update that message with new components
+    # (edit_message does not yield, so gotta make new embed/components from scratch)
+    embed = Discordrb::Webhooks::Embed.new
+    view = Discordrb::Webhooks::View.new
+    add_selects(embed, view)
+
+    select_message.edit('', embed, view)
+  end
 end

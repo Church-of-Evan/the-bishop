@@ -5,6 +5,8 @@ prefix: "!"
 
 bot_channel: 1234
 testing_channel: 1234
+chapel_channel: 1234
+rules_channel: 1234
 
 roles:
   god: 1111

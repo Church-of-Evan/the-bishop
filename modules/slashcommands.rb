@@ -11,12 +11,13 @@ module Bishop
         Discordrb::LOGGER.info 'Registering /role'
 
         # if its already registered, just return and dont re-register it
-        if bot.get_application_commands(server_id: ENV['SERVER_ID']).any? { |c| c.name == 'role' }
+        if bot.get_application_commands(server_id: ENV.fetch('SERVER_ID', nil)).any? { |c| c.name == 'role' }
           Discordrb::LOGGER.info '  already registered, skipping'
           return
         end
 
-        bot.register_application_command(:role, 'Manage your class roles', server_id: ENV['SERVER_ID']) do |cmd|
+        bot.register_application_command(:role, 'Manage your class roles',
+                                         server_id: ENV.fetch('SERVER_ID', nil)) do |cmd|
           cmd.subcommand(:add, 'Select class roles to add')
           cmd.subcommand(:remove, 'Select roles to remove from yourself')
           cmd.subcommand(:list, 'List all valid class roles')
