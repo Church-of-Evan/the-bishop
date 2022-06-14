@@ -56,6 +56,9 @@ Bishop::Modules::SlashCommands.register_commands(bot)
 bot.ready do
   bot.listening = 'Evan'
   Discordrb::LOGGER.info "Logged in as #{bot.profile.username}"
+
+  # ensure role message is up to date
+  SharedRoleComponents.update_select_message(bot)
 end
 
 # start bot

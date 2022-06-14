@@ -61,7 +61,6 @@ module Bishop
 
         # update role list with new role
         new_role = server.create_role(name: name, mentionable: true)
-        new_role.permissions.can_send_tts_messages = false
         ROLES['classes'][name] = { 'id' => new_role.id, 'title' => title }
 
         # sort updated role list and write to file
@@ -80,6 +79,8 @@ module Bishop
             Discordrb::Overwrite.new(server.everyone_role, deny: can_view)
           ]
         )
+
+        SharedRoleComponents.update_select_message(event.bot)
 
         event.channel.send_embed do |embed|
           embed.description = "Channel #{new_channel.mention} and role #{new_role.mention} created."
