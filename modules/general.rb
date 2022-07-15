@@ -92,6 +92,10 @@ module Bishop
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
 
+      command(:sec, aliases: %i[sec_plug]) do
+        'https://discord.gg/k7FsFb2rrC 🔌'
+      end
+
       command(:roll, aliases: %i[dice]) do |event, n|
         return event.message.react '❓' if n.to_i < 1
 
