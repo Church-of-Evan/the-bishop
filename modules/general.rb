@@ -92,7 +92,7 @@ module Bishop
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
 
-      command(:sec, aliases: %i[sec_plug]) do
+      command(:osusec, aliases: %i[sec_plug]) do
         'https://discord.gg/k7FsFb2rrC 🔌'
       end
 
