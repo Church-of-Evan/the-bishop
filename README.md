@@ -28,6 +28,10 @@ docker run -d --rm --name the-bishop -v $(pwd)/config.yml:/app/config.yml \
 2. Install required gems: `bundle install`
 3. Run the bot: `bundle exec ruby main.rb`
 
+## Contributing
+
+PRs welcome! DiscordRB is not hard to use, and their [documentation](https://drb.shardlab.dev) has great [examples](https://github.com/shardlab/discordrb/tree/main/examples).
+
 -----
 
 *Created by [detjensrobert](https://github.com/detjensrobert) / @WholeWheatBagels#3140*
