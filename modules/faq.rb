@@ -17,14 +17,14 @@ module Bishop
         # handle add/remove for admins only
         case slug
         when 'register', 'new', 'add'
-          return unless event.author.roles.intersect? CONFIG['roles']['admin']
+          return unless (event.author.roles & CONFIG['roles']['admin']).any?
 
           faqs[slug] = message.join(' ')
           File.write('faq.yml', faqs.to_yaml)
 
           return event.message.react '✅'
         when 'delete', 'remove'
-          return unless event.author.roles.intersect? CONFIG['roles']['admin']
+          return unless (event.author.roles & CONFIG['roles']['admin']).any?
 
           faqs.delete slug
           File.write('faq.yml', faqs.to_yaml)
