@@ -9,7 +9,7 @@ module Bishop
 
       command(:faq) do |event, slug, *message|
         faqs = begin
-          YAML.parse_file('faq.yml')
+          YAML.load_file('faq.yml')
         rescue Errno::ENOENT
           {}
         end
