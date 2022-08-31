@@ -34,7 +34,7 @@ module Bishop
 
         if faqs[slug]
           event.send_embed do |embed|
-            event.color = CONFIG['colors']['info']
+            embed.color = CONFIG['colors']['info']
             embed.fields = [
               { name: "FAQ: #{slug}", value: faqs[slug] || '(no content)'  }
             ]
