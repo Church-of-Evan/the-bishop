@@ -6,7 +6,7 @@ module Bishop
       extend Discordrb::Commands::CommandContainer
 
       command(:faq) do |event, slug, *message|
-        faqs = YAML.parse_file('faq.yml')
+        faqs = begin YAML.parse_file('faq.yml') rescue {} end
 
         # handle add/remove for admins only
         case slug
