@@ -21,18 +21,22 @@ module Bishop
 
           faqs[slug] = message.join(' ')
           File.write('faq.yml', faqs.to_yaml)
+
+          return event.message.react '✅'
         when 'delete', 'remove'
           return unless event.author.roles.intersect? CONFIG['roles']['admin']
 
           faqs.delete slug
           File.write('faq.yml', faqs.to_yaml)
+
+          return event.message.react '✅'
         end
 
         if faqs[slug]
           event.send_embed do |embed|
             event.color = CONFIG['colors']['info']
             embed.fields = [
-              { name: "FAQ: #{slug}", value: faqs[slug] }
+              { name: "FAQ: #{slug}", value: faqs[slug] || '(no content)'  }
             ]
           end
         elsif slug
@@ -43,7 +47,7 @@ module Bishop
           event.send_embed do |embed|
             embed.color = CONFIG['colors']['info']
             embed.fields = [
-              { name: 'All FAQs', value: faqs.keys.join(' ') }
+              { name: 'All FAQs', value: faqs.keys.any? ? faqs.keys.join(' ') : '(no entries)' }
             ]
           end
         end
