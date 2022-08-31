@@ -51,7 +51,12 @@ module Bishop
 
       command(:praise, channels: [CONFIG['chapel_channel'], CONFIG['testing_channel']]) do |event|
         PRAISE_MUTEX.synchronize do
-          praises = begin File.read('praises').to_i rescue 0 end
+          praises = begin
+            File.read('praises').to_i
+          rescue Errno::ENOENT
+            0
+          end
+
           praises += 1
           File.write('praises', praises)
           event.channel.send_embed do |embed|

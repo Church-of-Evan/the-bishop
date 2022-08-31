@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
 module Bishop
@@ -6,7 +8,11 @@ module Bishop
       extend Discordrb::Commands::CommandContainer
 
       command(:faq) do |event, slug, *message|
-        faqs = begin YAML.parse_file('faq.yml') rescue {} end
+        faqs = begin
+          YAML.parse_file('faq.yml')
+        rescue Errno::ENOENT
+          {}
+        end
 
         # handle add/remove for admins only
         case slug
@@ -22,15 +28,14 @@ module Bishop
           File.write('faq.yml', faqs.to_yaml)
         end
 
-        case
-        when faqs[slug]
+        if faqs[slug]
           event.send_embed do |embed|
             event.color = CONFIG['colors']['info']
             embed.fields = [
-              { name: "FAQ: #{slug}", value: faqs[slug] },
+              { name: "FAQ: #{slug}", value: faqs[slug] }
             ]
           end
-        when slug
+        elsif slug
           # bad slug given
           event.message.react '❓'
         else
@@ -38,7 +43,7 @@ module Bishop
           event.send_embed do |embed|
             embed.color = CONFIG['colors']['info']
             embed.fields = [
-              { name: "All FAQs", value: faqs.keys.join " " },
+              { name: 'All FAQs', value: faqs.keys.join(' ') }
             ]
           end
         end
