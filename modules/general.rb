@@ -9,7 +9,7 @@ PRAISE_MUTEX = Mutex.new unless defined? PRAISE_MUTEX
 
 module Bishop
   module Modules
-    module GeneralCommands
+    module General
       extend Discordrb::Commands::CommandContainer
 
       command(:ping, description: 'Pong!') do |event|

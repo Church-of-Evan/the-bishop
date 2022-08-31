@@ -29,7 +29,7 @@ Dir.glob(File.join('modules', '*.rb')).each { |f| load f }
 bot = Discordrb::Commands::CommandBot.new token: CONFIG['token'], prefix: CONFIG['prefix']
 
 def reload_modules(bot)
-  # remove all current handlers
+  # remove all current handlers (except !help)
   bot.clear!
   bot.commands.keys.grep_v(:help).each { |c| bot.remove_command(c) }
 

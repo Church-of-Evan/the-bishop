@@ -7,7 +7,7 @@ require_relative '../shared/classes_api'
 
 module Bishop
   module Modules
-    module AdminCommands
+    module Admin
       extend Discordrb::Commands::CommandContainer
 
       command(:update,

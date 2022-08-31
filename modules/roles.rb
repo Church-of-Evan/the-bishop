@@ -2,7 +2,7 @@
 
 module Bishop
   module Modules
-    module RoleCommands
+    module Roles
       extend Discordrb::Commands::CommandContainer
 
       command(:role,
@@ -20,6 +20,8 @@ module Bishop
 
           roles.each do |r|
             r.downcase!
+          else
+
 
             role_data = ROLES['general'][r] || ROLES['classes'][r]
 
