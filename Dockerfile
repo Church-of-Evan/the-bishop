@@ -2,9 +2,10 @@ FROM ruby:3.1
 
 # install gem dependencies
 RUN apt-get -qq update -y
+
 RUN apt-get -qq install -y \
-    cmake build-essential bison flex libffi-dev libxml2-dev \
-    libgdk-pixbuf2.0-dev libcairo2-dev libpango1.0-dev fonts-lyx
+    cmake build-essential bison flex libffi-dev libxml2-dev libwebp-dev \
+    libzstd-dev libgdk-pixbuf2.0-dev libcairo2-dev libpango1.0-dev fonts-lyx
 
 # install app
 WORKDIR /app

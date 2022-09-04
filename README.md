@@ -24,7 +24,7 @@ docker run -d --rm --name the-bishop -v $(pwd)/config.yml:/app/config.yml \
 1. Install Mathematical gem dependencies:
    - `pacman -Sy cmake base-devel python libffi libxml2 gdk-pixbuf2 cairo pango jbigkit`
    - `dnf install ruby-devel gcc-c++ cmake bison flex libffi-devel libxml2-devel glib2-devel cairo-devel cairo-gobject-devel pango-devel gdk-pixbuf2-devel jbigkit-devel libwebp-devel`
-   - `apt install cmake build-essential bison flex libffi-dev libxml2-dev libgdk-pixbuf2.0-dev libcairo2-dev libpango1.0-dev fonts-lyx`
+   - `apt install cmake build-essential bison flex libffi-dev libxml2-dev libwebp-dev libzstd-dev libgdk-pixbuf2.0-dev libcairo2-dev libpango1.0-dev fonts-lyx`
 2. Install required gems: `bundle install`
 3. Run the bot: `bundle exec ruby main.rb`
 
