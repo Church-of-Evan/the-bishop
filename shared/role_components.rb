@@ -90,7 +90,7 @@ module SharedRoleComponents
     # select_message = rules_channel.history(10).filter { |m| m.embeds[0].fields[0].name == 'Role Selection' }.first
 
     # if there's not a message, make a new one
-    select_message ||= rules_channel.send("Generating embed...")
+    select_message = rules_channel.send("Generating embed...") unless select_message
 
     # update that message with new components
     # (edit_message does not yield, so gotta make new embed/components from scratch)
