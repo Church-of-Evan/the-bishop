@@ -49,7 +49,7 @@ module Bishop
       command(:newclass,
               allowed_roles: CONFIG['roles']['admin'],
               description: 'Create a new class role and channel. [admin only]') do |event, name|
-        return event.message.react '❓' unless name && name =~ /\w+\d+/
+        return event.message.react '❓' unless name && name =~ /^\w+\d+$/
 
         return 'That role already exists!' if ROLES['classes'].key? name
 
