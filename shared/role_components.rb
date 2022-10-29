@@ -89,6 +89,9 @@ module SharedRoleComponents
     # this should be smart here and check for the embed name but this doesnt work :shrug:
     # select_message = rules_channel.history(10).filter { |m| m.embeds[0].fields[0].name == 'Role Selection' }.first
 
+    # if there's not a message, make a new one
+    select_message ||= rules_channel.send("Generating embed...")
+
     # update that message with new components
     # (edit_message does not yield, so gotta make new embed/components from scratch)
     embed = Discordrb::Webhooks::Embed.new
