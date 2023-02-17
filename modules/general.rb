@@ -81,7 +81,7 @@ module Bishop
         ].sample
       end
 
-      command(:smallsh, aliases: %i[thattimeoftheyearagain]) do
+      command(:smallsh, aliases: %i[thattimeoftheyearagain thattimeofyearagain]) do
         'https://gist.github.com/detjensrobert/27cc771e6946c590a14a00ddb1eae0d8'
       end
 
