@@ -90,7 +90,11 @@ module Bishop
       end
 
       command(:forecasting) do
-        'https://docs.google.com/spreadsheets/d/1nO1AKQhwIzeB4EMpMmGn11HjBGGNundtWA0Pogi6-HY/edit'
+        <<~MSG
+          ⚠ Note: this sheet has not been updated for the coming year!
+
+          https://docs.google.com/spreadsheets/d/1nO1AKQhwIzeB4EMpMmGn11HjBGGNundtWA0Pogi6-HY/edit
+        MSG
       end
 
       command(:lug, aliases: %i[plug]) do
