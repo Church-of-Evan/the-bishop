@@ -91,7 +91,7 @@ module Bishop
 
       command(:forecasting) do
         <<~MSG
-          https://docs.google.com/spreadsheets/u/2/d/1s2tfkbiQQuEVG4jTj1lN6zF6McxphtIiCBrXO_WKl_4/htmlview#
+          https://docs.google.com/spreadsheets/u/2/d/1s2tfkbiQQuEVG4jTj1lN6zF6McxphtIiCBrXO_WKl_4/htmlview#gid=938365874
         MSG
       end
 
