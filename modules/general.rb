@@ -91,9 +91,7 @@ module Bishop
 
       command(:forecasting) do
         <<~MSG
-          ⚠ Note: this sheet has not been updated for the coming year!
-
-          https://docs.google.com/spreadsheets/d/1nO1AKQhwIzeB4EMpMmGn11HjBGGNundtWA0Pogi6-HY/edit
+          https://docs.google.com/spreadsheets/u/2/d/1s2tfkbiQQuEVG4jTj1lN6zF6McxphtIiCBrXO_WKl_4/htmlview#
         MSG
       end
 
