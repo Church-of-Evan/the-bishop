@@ -90,9 +90,7 @@ module Bishop
       end
 
       command(:forecasting) do
-        <<~MSG
-          https://docs.google.com/spreadsheets/u/2/d/1s2tfkbiQQuEVG4jTj1lN6zF6McxphtIiCBrXO_WKl_4/htmlview#
-        MSG
+        'https://docs.google.com/spreadsheets/d/1s2tfkbiQQuEVG4jTj1lN6zF6McxphtIiCBrXO_WKl_4/htmlview'
       end
 
       command(:lug, aliases: %i[plug]) do
