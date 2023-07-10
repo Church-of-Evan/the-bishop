@@ -1,15 +1,15 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: b029e52961ccb8eacda54695a3d56b0154b27e9d
+  revision: a873d4efad8e87af5732a7e63044ff95cebc11d6
   branch: main
   specs:
-    discordrb (3.4.2)
-      discordrb-webhooks (~> 3.4.2)
+    discordrb (3.5.0)
+      discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
       opus-ruby
       rest-client (>= 2.0.0)
       websocket-client-simple (>= 0.3.0)
-    discordrb-webhooks (3.4.2)
+    discordrb-webhooks (3.5.0)
       rest-client (>= 2.0.0)
 
 GEM
