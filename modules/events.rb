@@ -36,7 +36,7 @@ module Bishop
         equations.each do |eqn|
           Discordrb::LOGGER.info "rendering equation from event: #{eqn}"
 
-          Tempfile.create(%w(equation png)) do |tempfile|
+          Tempfile.create(%w(equation .png)) do |tempfile|
             tempfile.binmode
             begin
               LatexRenderer.render_latex_equation(tempfile, eqn)

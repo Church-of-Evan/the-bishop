@@ -32,7 +32,7 @@ module Bishop
               description: 'Render a LaTeX math equation into an image') do |event, *equation|
         equation = equation.join(' ')
 
-        Tempfile.create(%w(equation png)) do |tempfile|
+        Tempfile.create(%w(equation .png)) do |tempfile|
           tempfile.binmode
           begin
             LatexRenderer.render_latex_equation(tempfile, "$#{equation}$")
