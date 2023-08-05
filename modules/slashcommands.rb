@@ -41,7 +41,7 @@ module Bishop
         end
       end
 
-      %w(general 100/200 300 400).each do |level|
+      %w(general 100/200 300 400 450 500).each do |level|
         select_menu(custom_id: "role_add_#{level}") do |event|
           # add disciple role here to allow access to server
           event.user.add_role(CONFIG['roles']['disciple'])
