@@ -69,7 +69,9 @@ module SharedRoleComponents
           s.option(label: "#{slug.upcase}: #{data['title']}", value: data['id'].to_s)
         end
       end
+    end
 
+    view.row do |row|
       # 450-499 level
       r = ROLES['classes'].filter { |n, _| n.match?(/4[5-9]\d/) }
       row.select_menu(custom_id: 'role_add_450', placeholder: '400-level classes (450-499)', max_values: r.size) do |s|
