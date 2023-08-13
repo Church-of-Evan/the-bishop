@@ -101,6 +101,14 @@ module Bishop
         'https://discord.gg/k7FsFb2rrC 🔌'
       end
 
+      command(:osuapp, aliases: %i[app_plug]) do
+        'https://discord.gg/BfdNJ7hXdd 🔌'
+      end
+
+      command(:acm, aliases: %i[acm_plug]) do
+        'https://discord.gg/vwD9ksCqsV 🔌'
+      end
+
       command(:roll, aliases: %i[dice]) do |event, n|
         return event.message.react '❓' if n.to_i < 1
 
