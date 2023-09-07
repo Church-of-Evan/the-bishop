@@ -101,6 +101,10 @@ module Bishop
         'https://discord.gg/k7FsFb2rrC 🔌'
       end
 
+      command(:osumath, aliases: %i[math_plug mathchads]) do
+        'https://discord.gg/8KvaBERwY7 🔌'
+      end
+
       command(:osuapp, aliases: %i[app_plug]) do
         'https://discord.gg/BfdNJ7hXdd 🔌'
       end
