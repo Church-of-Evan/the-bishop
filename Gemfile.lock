@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: a873d4efad8e87af5732a7e63044ff95cebc11d6
+  revision: 57c1f5c665df12ad537f7e42cd6213af892fa1f4
   branch: main
   specs:
     discordrb (3.5.0)
@@ -22,7 +22,7 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
-    ffi (1.15.5)
+    ffi (1.16.3)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -35,9 +35,9 @@ GEM
     language_server-protocol (3.17.0.3)
     mathematical (1.6.14)
       ruby-enum (~> 0.4)
-    mime-types (3.4.1)
+    mime-types (3.5.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.0218.1)
+    mime-types-data (3.2023.1003)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
     multi_xml (0.6.0)
@@ -78,8 +78,8 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
-    websocket (1.2.9)
-    websocket-client-simple (0.6.1)
+    websocket (1.2.10)
+    websocket-client-simple (0.8.0)
       event_emitter
       websocket
 
