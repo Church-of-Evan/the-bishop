@@ -97,6 +97,9 @@ module Bishop
         'https://discord.gg/3Jfq6aXy5B 🔌'
       end
 
+      command(:kelleyrooms, aliases: %i[kecroom kecrooms]) do
+        'https://secure.engr.oregonstate.edu/eecs/resources/rooms/ (ONID login required, must be faculty or staff for write access, everyone else is read-only)'
+
       command(:osusec, aliases: %i[sec_plug]) do
         'https://discord.gg/k7FsFb2rrC 🔌'
       end
