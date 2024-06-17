@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/shardlab/discordrb
-  revision: edad88dc5d2fcb79985a8bf9d7da24702a544783
+  revision: 913710f2390ca7eef9f1b301a0018eee7f8fbdbd
   branch: main
   specs:
     discordrb (3.5.0)
@@ -21,9 +21,10 @@ GEM
     docopt (0.6.1)
     domain_name (0.6.20240107)
     event_emitter (0.2.6)
-    ffi (1.16.3)
+    ffi (1.17.0-aarch64-linux-gnu)
+    ffi (1.17.0-x86_64-linux-gnu)
     http-accept (1.7.0)
-    http-cookie (1.0.5)
+    http-cookie (1.0.6)
       domain_name (~> 0.5)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
@@ -36,7 +37,7 @@ GEM
       ruby-enum (~> 0.4)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.1205)
+    mime-types-data (3.2024.0604)
     mini_magick (4.13.1)
     mini_mime (1.1.2)
     multi_xml (0.6.0)
