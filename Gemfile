@@ -10,7 +10,7 @@ gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 gem 'docopt', '~> 0.6.1'
 gem 'httparty', '~> 0.21.0'
 gem 'mathematical', '~> 1.6'
-gem 'mini_magick', '~> 4.13'
+gem 'mini_magick', '~> 5.0'
 
 group :dev do
   gem 'rubocop'
