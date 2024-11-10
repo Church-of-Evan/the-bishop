@@ -85,6 +85,10 @@ module Bishop
         'https://gist.github.com/detjensrobert/27cc771e6946c590a14a00ddb1eae0d8'
       end
 
+      command(:rule4, aliases: %i[politics]) do
+        'Please use Dam Discord for political discussions which are off-topic for a CS server: https://discord.gg/XB8jN5s3hk'
+      end
+
       command(:otp, aliases: %i[onetimepads]) do
         'https://gist.github.com/detjensrobert/7b0b2beb80f1a2cac49c4d9179b9e7b3'
       end
