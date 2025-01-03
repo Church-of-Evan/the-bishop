@@ -3,7 +3,6 @@ GEM
   specs:
     ast (2.4.2)
     base64 (0.2.0)
-    bigdecimal (3.1.9)
     discordrb (3.5.0)
       discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
@@ -33,8 +32,7 @@ GEM
     mime-types-data (3.2024.1203)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
-    multi_xml (0.7.1)
-      bigdecimal (~> 3.1)
+    multi_xml (0.6.0)
     mutex_m (0.3.0)
     netrc (0.11.0)
     opus-ruby (1.0.1)
@@ -76,8 +74,7 @@ GEM
       websocket
 
 PLATFORMS
-  aarch64-linux
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   discordrb (~> 3.5.0)
@@ -88,5 +85,8 @@ DEPENDENCIES
   mini_magick (~> 4.13)
   rubocop
 
+RUBY VERSION
+   ruby 2.7.8p225
+
 BUNDLED WITH
-   2.6.0
+   2.1.4
