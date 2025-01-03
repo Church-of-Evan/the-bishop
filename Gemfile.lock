@@ -1,10 +1,10 @@
-GIT
-  remote: https://github.com/shardlab/discordrb
-  revision: 972fdd655721dc2e5d8cf7c634ea58fda451c301
-  branch: main
+GEM
+  remote: https://rubygems.org/
   specs:
+    ast (2.4.2)
+    base64 (0.2.0)
+    bigdecimal (3.1.9)
     discordrb (3.5.0)
-      base64 (~> 0.2.0)
       discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
       opus-ruby
@@ -12,13 +12,6 @@ GIT
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.5.0)
       rest-client (>= 2.0.0)
-
-GEM
-  remote: https://rubygems.org/
-  specs:
-    ast (2.4.2)
-    base64 (0.2.0)
-    bigdecimal (3.1.9)
     docopt (0.6.1)
     domain_name (0.6.20240107)
     event_emitter (0.2.6)
@@ -87,7 +80,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  discordrb!
+  discordrb (~> 3.5.0)
   docopt (~> 0.6.1)
   ffi (~> 1.16.0)
   httparty (~> 0.21.0)
