@@ -94,7 +94,7 @@ module Bishop
       end
 
       command(:forecasting) do
-        'https://docs.google.com/spreadsheets/d/1tIvPdUo9_ZEGyHQqMjZLt5rYz70djzqcRU4HCeAKk4k/htmlview'
+        'https://docs.google.com/spreadsheets/d/1yna7wccuV_dW6KYd1dzRgs_VNE5TzkJvfPgDxv1h0hM/htmlview'
       end
 
       command(:lug, aliases: %i[plug]) do
